@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZNTV1XHZZ7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-ZNTV1XHZZ7');
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#141412">
@@ -498,6 +506,25 @@ document.addEventListener('DOMContentLoaded', function () {
   b.addEventListener('click', open);
   c.addEventListener('click', close);
   m.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', close); });
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  function t(name, params) { if (typeof gtag === 'function') gtag('event', name, params); }
+  var begin = document.getElementById('qbegin');
+  if (begin) begin.addEventListener('click', function () { t('quiz_start', {}); });
+  var res = document.getElementById('qresult');
+  if (res) new MutationObserver(function () {
+    if (res.classList.contains('on')) {
+      var v = document.getElementById('qclass');
+      t('quiz_complete', { verdict: v ? v.textContent : '' });
+    }
+  }).observe(res, { attributes: true, attributeFilter: ['class'] });
+  var book = document.getElementById('qbook');
+  if (book) book.addEventListener('click', function () {
+    var v = document.getElementById('qclass');
+    t('quiz_book_click', { verdict: v ? v.textContent : '' });
+  });
 });
 </script>
 </body>

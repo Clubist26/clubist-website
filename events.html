@@ -11,7 +11,7 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Contact Clubist, Dubai Marina. Message the club on WhatsApp, email hello@clubist.ae, or visit us at Marina Quays with dedicated valet at the door.">
+<meta name="description" content="Events at Clubist, Dubai Marina. Classes beyond the club, full moon sound healing and gatherings for the community.">
 <title>Contact Clubist | Dubai Marina</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -126,9 +126,27 @@ footer{border-top:1px solid var(--ink);padding:100px 0 40px}
   .ppanel{padding:64px 0}
   .mnote{padding:64px 0}
 }
+
+/* events archive */
+.evhead{padding:100px 0 70px;text-align:center}
+.evhead h1{font-family:var(--serif);font-weight:400;font-size:clamp(44px,5.6vw,82px);line-height:1.05;margin:18px auto 22px;text-wrap:balance}
+.evhead p{max-width:54ch;margin:0 auto;color:#3c3a35}
+.archive{max-width:900px;margin:0 auto;padding:0 40px 110px}
+.ev{display:grid;grid-template-columns:auto 1fr auto;gap:14px 34px;align-items:baseline;padding:34px 0;border-bottom:1px solid rgba(20,20,18,.25)}
+.ev:first-child{border-top:1px solid rgba(20,20,18,.25)}
+.ev .n{font-family:var(--serif);font-size:17px;color:var(--green)}
+.ev h3{font-family:var(--serif);font-weight:400;font-size:clamp(26px,3vw,40px);line-height:1.15}
+.ev .where{font-size:10px;letter-spacing:.2em;text-transform:uppercase;font-weight:500;color:var(--stone);text-align:right;white-space:nowrap}
+.ev p{grid-column:2/4;color:#3c3a35;max-width:58ch;text-wrap:pretty}
+@media(max-width:700px){.ev{grid-template-columns:auto 1fr}.ev .where{grid-column:2;text-align:left;white-space:normal}.ev p{grid-column:1/-1}}
+.evband{background:var(--green);color:var(--bone);text-align:center;padding:100px 0}
+.evband h2{font-family:var(--serif);font-weight:400;font-size:clamp(32px,4vw,54px);margin:16px auto 20px;max-width:800px}
+.evband p{color:#DDE8DE;max-width:52ch;margin:0 auto 30px}
+.evband .label{color:var(--bone);opacity:.75}
+.evband .ctas{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
 </style>
-<meta property="og:title" content="Contact Clubist | Dubai Marina">
-<meta property="og:description" content="Contact Clubist, Dubai Marina. Message the club on WhatsApp, email hello@clubist.ae, or visit us at Marina Quays with dedicated valet at the door.">
+<meta property="og:title" content="Events | Clubist, Dubai Marina">
+<meta property="og:description" content="Classes beyond the club, full moon rituals and gatherings for the Clubist community.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Clubist">
 <meta property="og:locale" content="en_AE">
@@ -147,9 +165,9 @@ footer{border-top:1px solid var(--ink);padding:100px 0 40px}
       <a href="about.html">About</a>
       <a href="studios.html">The Studios</a>
       <a href="team.html">Team</a>
-      <a href="events.html">Events</a>
+      <a class="here" href="#top">Events</a>
       <a href="pricing.html">Pricing &amp; Packages</a>
-      <a class="here" href="#top">Contact</a>
+      <a href="contact.html">Contact</a>
     </div>
     <div class="nav-ctas">
       <a class="btn" href="https://clients.mindbodyonline.com/classic/ws?studioid=5740997&amp;stype=-7&amp;sView=day&amp;sLoc=0" target="_blank" rel="noopener">View schedule</a>
@@ -167,7 +185,7 @@ footer{border-top:1px solid var(--ink);padding:100px 0 40px}
   <a class="mlink" href="about.html"><span>No.2 /</span>About</a>
   <a class="mlink" href="studios.html"><span>No.3 /</span>The Studios</a>
   <a class="mlink" href="/#thirtyfour"><span>No.4 /</span>Thirtyfour</a>
-  <a class="mlink" href="events.html"><span>No.5 /</span>Events</a>
+  <a class="mlink" href="#top"><span>No.5 /</span>Events</a>
   <a class="mlink" href="pricing.html"><span>No.6 /</span>Pricing &amp; Packages</a>
   <a class="mlink" href="team.html"><span>No.7 /</span>Team</a>
   <a class="mlink" href="https://clients.mindbodyonline.com/classic/ws?studioid=5740997&amp;stype=-7&amp;sView=day&amp;sLoc=0" target="_blank" rel="noopener"><span>No.8 /</span>Schedule</a>
@@ -175,28 +193,46 @@ footer{border-top:1px solid var(--ink);padding:100px 0 40px}
   <a class="btn" href="https://apps.apple.com/ro/app/clubist/id6752380010" target="_blank" rel="noopener">Download the app</a>
 </div>
 
-<header class="chead">
+<header class="evhead">
   <div class="wrap">
-    <p class="label">Contact</p>
-    <h1>Find <i>us</i></h1>
-    <p>For classes, memberships, corporate and venue enquiries, or anything else, the club is easy to reach.</p>
+    <p class="label">Events</p>
+    <h1>The club, beyond <i>the schedule</i></h1>
+    <p>Clubist is built on community, and some of its best moments happen outside the daily timetable: classes taken into the city, rituals under the full moon, evenings that end at the table. A record of where the club has been.</p>
   </div>
 </header>
 
-<div class="wrap cgrid">
-  <div class="chan">
-    <a class="row" href="https://wa.me/971529218045" target="_blank" rel="noopener"><span class="cn">WhatsApp</span><span class="cv">+971 52 921 8045</span></a>
-    <a class="row" href="mailto:hello@clubist.ae"><span class="cn">Email</span><span class="cv">hello@clubist.ae</span></a>
-    <a class="row" href="https://www.instagram.com/clubist.ae/" target="_blank" rel="noopener"><span class="cn">Instagram</span><span class="cv">@clubist.ae</span></a>
-    <p class="note">For corporate memberships and private venue hire, email the club and the team will arrange a site visit.</p>
+<div class="archive">
+  <div class="ev">
+    <span class="n">I</span>
+    <h3>The Intention Ritual</h3>
+    <span class="where">The Mind &amp; Body Room</span>
+    <p>An evening of sound healing held under the August full moon, facilitated by Ancestral Soundwork. Phones set aside, the studio candlelit and scented, closing with tea and written intentions for the month ahead.</p>
   </div>
-  <div class="visit">
-    <p class="label">Visit</p>
-    <h3>Marina Quays, Dubai Marina</h3>
-    <p>Dedicated valet service at the door. Arrive, hand over the keys, and your time at the club begins.</p>
-    <a class="btn" href="https://share.google/z2aP3OrRTOpoTPeqL" target="_blank" rel="noopener">Get directions</a>
+  <div class="ev">
+    <span class="n">II</span>
+    <h3>Clubist at the Museum of the Future</h3>
+    <span class="where">Museum of the Future</span>
+    <p>The club&rsquo;s training taken to one of Dubai&rsquo;s most recognisable stages.</p>
+  </div>
+  <div class="ev">
+    <span class="n">III</span>
+    <h3>The Marina Mall Class</h3>
+    <span class="where">Dubai Marina Mall</span>
+    <p>A Clubist class staged in the heart of the Marina, bringing the club into the city it belongs to.</p>
   </div>
 </div>
+
+<section class="evband">
+  <div class="wrap">
+    <p class="label">Be there for the next one</p>
+    <h2>Events are announced to <i>the community</i> first</h2>
+    <p>New events open through the club&rsquo;s newsletter and on Instagram, and spaces are deliberately limited.</p>
+    <div class="ctas">
+      <a class="btn light" href="mailto:hello@clubist.ae">Subscribe</a>
+      <a class="btn light" href="https://www.instagram.com/clubist.ae/" target="_blank" rel="noopener">Follow on Instagram</a>
+    </div>
+  </div>
+</section>
 
 <footer>
   <div class="wrap">
@@ -208,7 +244,7 @@ footer{border-top:1px solid var(--ink);padding:100px 0 40px}
         <a href="about.html"><span>No.2 /</span>About</a>
         <a href="studios.html"><span>No.3 /</span>The Studios</a>
         <a href="/#thirtyfour"><span>No.4 /</span>Thirtyfour</a>
-        <a href="events.html"><span>No.5 /</span>Events</a>
+        <a href="#top"><span>No.5 /</span>Events</a>
         <a href="pricing.html"><span>No.6 /</span>Pricing &amp; Packages</a>
         <a href="team.html"><span>No.7 /</span>Team</a>
         <a href="https://clients.mindbodyonline.com/classic/ws?studioid=5740997&amp;stype=-7&amp;sView=day&amp;sLoc=0" target="_blank" rel="noopener"><span>No.8 /</span>Schedule</a>

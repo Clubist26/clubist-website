@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZNTV1XHZZ7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-ZNTV1XHZZ7');
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Clubist pricing and class packages. Discovery for your first visit, and packs for the Mind &amp; Body Room, Megaformer Room and Dark Room.">
@@ -197,6 +205,7 @@ footer{border-top:1px solid var(--ink);padding:100px 0 40px}
       <a href="about.html">About</a>
       <a href="studios.html">The Studios</a>
       <a href="team.html">Team</a>
+      <a href="events.html">Events</a>
       <a class="here" href="#top">Pricing &amp; Packages</a>
       <a href="contact.html">Contact</a>
     </div>
@@ -216,10 +225,11 @@ footer{border-top:1px solid var(--ink);padding:100px 0 40px}
   <a class="mlink" href="about.html"><span>No.2 /</span>About</a>
   <a class="mlink" href="studios.html"><span>No.3 /</span>The Studios</a>
   <a class="mlink" href="/#thirtyfour"><span>No.4 /</span>Thirtyfour</a>
-  <a class="mlink" href="pricing.html"><span>No.5 /</span>Pricing &amp; Packages</a>
-  <a class="mlink" href="team.html"><span>No.6 /</span>Team</a>
-  <a class="mlink" href="https://clients.mindbodyonline.com/classic/ws?studioid=5740997&amp;stype=-7&amp;sView=day&amp;sLoc=0" target="_blank" rel="noopener"><span>No.7 /</span>Schedule</a>
-  <a class="mlink" href="contact.html"><span>No.8 /</span>Contact</a>
+  <a class="mlink" href="events.html"><span>No.5 /</span>Events</a>
+  <a class="mlink" href="pricing.html"><span>No.6 /</span>Pricing &amp; Packages</a>
+  <a class="mlink" href="team.html"><span>No.7 /</span>Team</a>
+  <a class="mlink" href="https://clients.mindbodyonline.com/classic/ws?studioid=5740997&amp;stype=-7&amp;sView=day&amp;sLoc=0" target="_blank" rel="noopener"><span>No.8 /</span>Schedule</a>
+  <a class="mlink" href="contact.html"><span>No.9 /</span>Contact</a>
   <a class="btn" href="https://apps.apple.com/ro/app/clubist/id6752380010" target="_blank" rel="noopener">Download the app</a>
 </div>
 
@@ -312,9 +322,10 @@ footer{border-top:1px solid var(--ink);padding:100px 0 40px}
         <a href="about.html"><span>No.2 /</span>About</a>
         <a href="studios.html"><span>No.3 /</span>The Studios</a>
         <a href="/#thirtyfour"><span>No.4 /</span>Thirtyfour</a>
-        <a href="#top"><span>No.5 /</span>Pricing &amp; Packages</a>
-        <a href="team.html"><span>No.6 /</span>Team</a>
-        <a href="https://clients.mindbodyonline.com/classic/ws?studioid=5740997&amp;stype=-7&amp;sView=day&amp;sLoc=0" target="_blank" rel="noopener"><span>No.7 /</span>Schedule</a>
+        <a href="events.html"><span>No.5 /</span>Events</a>
+        <a href="#top"><span>No.6 /</span>Pricing &amp; Packages</a>
+        <a href="team.html"><span>No.7 /</span>Team</a>
+        <a href="https://clients.mindbodyonline.com/classic/ws?studioid=5740997&amp;stype=-7&amp;sView=day&amp;sLoc=0" target="_blank" rel="noopener"><span>No.8 /</span>Schedule</a>
       </div>
       <div class="foot-news">
         <p class="label">Newsletter</p>
@@ -403,6 +414,28 @@ document.addEventListener('DOMContentLoaded', function () {
   b.addEventListener('click', open);
   c.addEventListener('click', close);
   m.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', close); });
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  function t(name, params) { if (typeof gtag === 'function') gtag('event', name, params); }
+  var studios = { 'p-mb': 'Mind & Body', 'p-mf': 'Megaformer', 'p-dr': 'Dark Room' };
+  document.querySelectorAll('.ppanel').forEach(function (panel) {
+    var studio = studios[panel.id] || panel.id;
+    panel.querySelectorAll('.pill').forEach(function (pill) {
+      pill.addEventListener('click', function () {
+        t('select_pack', { studio: studio, pack_size: pill.dataset.n, price_aed: pill.dataset.price });
+      });
+    });
+  });
+  document.body.addEventListener('click', function (e) {
+    var a = e.target.closest('.hcslot a');
+    if (!a) return;
+    var panel = a.closest('.ppanel');
+    var studio = panel ? (studios[panel.id] || panel.id) : (a.closest('#discovery') ? 'Discovery' : 'Unlimited');
+    var on = panel ? panel.querySelector('.pill.on') : null;
+    t('buy_click', { studio: studio, pack_size: on ? on.dataset.n : '', price_aed: on ? on.dataset.price : '' });
+  });
 });
 </script>
 </body>
