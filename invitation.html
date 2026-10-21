@@ -112,7 +112,7 @@
     <div class="label">Thank you</div>
     <h2>invitation<b>accepted.</b></h2>
     <p>Clubist will contact you personally on WhatsApp to arrange your first class.</p>
-    <div class="wa" id="waEcho"></div>
+    <div class="wa" id="waEcho">Clubist will be in touch.</div>
     <div id="fallback" style="display:none; margin-top:28px">
       <p style="margin-bottom:22px">One last step: tap below to confirm your details with us on WhatsApp.</p>
       <a class="btn" id="waBtn" href="https://wa.me/971552141403" style="margin-top:0">CONFIRM ON WHATSAPP</a>
@@ -126,7 +126,7 @@ var form=document.getElementById('inv'), btn=form.querySelector('button[type=sub
 function val(id){return document.getElementById(id).value.trim();}
 function showDone(ok){
   document.body.classList.add('sent'); window.scrollTo(0,0);
-  var wa=val('i_wa'); if(wa) document.getElementById('waEcho').textContent='We will message you on '+wa;
+  var wa=val('i_wa');
   if(!ok){
     var msg="Hi, I'd like to accept my invitation to Clubist. Here are my details:\n\nName: "+val('i_first')+' '+val('i_last')+"\nEmail: "+val('i_email')+"\nWhatsApp: "+wa+"\nInvited by: "+val('i_ref');
     document.getElementById('waBtn').href='https://wa.me/971552141403?text='+encodeURIComponent(msg);
