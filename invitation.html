@@ -138,9 +138,18 @@ form.addEventListener('submit',function(e){
   document.getElementById('subject').value='Clubist invitation: '+val('i_first')+' '+val('i_last');
   btn.disabled=true; btn.textContent='SENDING';
   var fd=new FormData(form); fd.delete('_next');
+  // Backup record: every submission is also written to the Clubist Invitations Google Sheet
+  try{
+    var sp=new URLSearchParams(); fd.forEach(function(v,k){ if(k.charAt(0)!=='_') sp.append(k,v); });
+    fetch('https://script.google.com/macros/s/AKfycbxNXI3E1SxmIY8WMzoO4DZ398pbKzaZOKBmUjqFtyqY1zAPNuQu3Wbvft6g1qBK071k/exec',{method:'POST',mode:'no-cors',body:sp,keepalive:true}).catch(function(){});
+  }catch(err){}
   try{gtag('event','invitation_accept');}catch(err){}
-  fetch('https://formsubmit.co/ajax/charlie@clubist.ae',{method:'POST',headers:{'Accept':'application/json'},body:fd})
-    .then(function(r){return r.json();})
+  function send(tries){
+    return fetch('https://formsubmit.co/ajax/charlie@clubist.ae',{method:'POST',headers:{'Accept':'application/json'},body:fd})
+      .then(function(r){return r.json();})
+      .catch(function(err){ if(tries>0) return new Promise(function(res){setTimeout(res,1500);}).then(function(){return send(tries-1);}); throw err; });
+  }
+  send(1)
     .then(function(j){ var ok=(j && (j.success===true||j.success==='true')); try{gtag('event', ok?'invitation_email_ok':'invitation_email_failed');}catch(err){} showDone(ok); })
     .catch(function(){ try{gtag('event','invitation_email_failed');}catch(err){} showDone(false); });
 });
