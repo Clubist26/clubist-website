@@ -78,8 +78,6 @@
     <input type="hidden" name="_subject" id="subject" value="PR guest booking">
     <input type="hidden" name="_template" value="table">
     <input type="hidden" name="_captcha" value="false">
-    <input type="hidden" name="_next" value="https://clubist.ae/pr?sent=1">
-    <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off">
 
     <fieldset>
       <legend>Booked by</legend>
@@ -124,6 +122,10 @@
     <h2>thank you.<b>request received.</b></h2>
     <p>Charlie will be in touch to confirm the booking.</p>
     <a href="/pr">BOOK ANOTHER GUEST</a>
+    <div id="fallback" style="display:none; margin-top:28px">
+      <p style="margin-bottom:22px">One last step: tap below to send these details to Charlie on WhatsApp.</p>
+      <a class="btn" id="waBtn" href="https://wa.me/971552141403" style="margin-top:0">SEND ON WHATSAPP</a>
+    </div>
   </div>
 
   <footer>Clubist, Marina Quays, King Salman Bin Abdulaziz Al Saud Street, Dubai Marina, Dubai</footer>
@@ -185,6 +187,30 @@ document.getElementById('pr').addEventListener('submit',function(e){
   document.getElementById('subject').value='PR guest booking: '+g+(extra>0?' +'+extra:'')+' ('+nice(dateEl.value)+')';
   try{gtag('event','pr_booking_submit');}catch(err){}
 });
+</script>
+<script>
+(function(){
+  var form=document.getElementById('pr'), btn=form.querySelector('button[type=submit]');
+  form.addEventListener('submit',function(e){
+    if(e.defaultPrevented) return;
+    e.preventDefault();
+    btn.disabled=true; btn.textContent='SENDING';
+    var fd=new FormData(form), lines=[];
+    fd.forEach(function(v,k){ if(k.charAt(0)!=='_' && String(v).trim()) lines.push(k+': '+v); });
+    fetch('https://formsubmit.co/ajax/charlie@clubist.ae',{method:'POST',headers:{'Accept':'application/json'},body:fd})
+      .then(function(r){return r.json();})
+      .then(function(j){ done(!!(j && (j.success===true||j.success==='true')), lines); })
+      .catch(function(){ done(false, lines); });
+  });
+  function done(ok, lines){
+    try{gtag('event', ok?'pr_email_ok':'pr_email_failed');}catch(err){}
+    document.body.classList.add('sent'); window.scrollTo(0,0);
+    if(!ok){
+      document.getElementById('waBtn').href='https://wa.me/971552141403?text='+encodeURIComponent('Hi Charlie, PR guest booking request:'+'\n\n'+lines.join('\n'));
+      document.getElementById('fallback').style.display='block';
+    }
+  }
+})();
 </script>
 </body>
 </html>

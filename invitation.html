@@ -92,8 +92,6 @@
     <input type="hidden" name="_subject" id="subject" value="Clubist invitation">
     <input type="hidden" name="_template" value="table">
     <input type="hidden" name="_captcha" value="false">
-    <input type="hidden" name="_next" value="https://clubist.ae/invitation?sent=1">
-    <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off">
 
     <fieldset>
       <legend>Your details</legend>
@@ -115,20 +113,36 @@
     <h2>invitation<b>accepted.</b></h2>
     <p>Clubist will contact you personally on WhatsApp to arrange your first class.</p>
     <div class="wa" id="waEcho"></div>
+    <div id="fallback" style="display:none; margin-top:28px">
+      <p style="margin-bottom:22px">One last step: tap below to confirm your details with us on WhatsApp.</p>
+      <a class="btn" id="waBtn" href="https://wa.me/971552141403" style="margin-top:0">CONFIRM ON WHATSAPP</a>
+    </div>
   </div>
 
   <footer>Clubist, Marina Quays, King Salman Bin Abdulaziz Al Saud Street, Dubai Marina, Dubai</footer>
 </main>
 <script>
-if (new URLSearchParams(location.search).get('sent')) {
-  document.body.classList.add('sent');
-  try { var n=sessionStorage.getItem('clubistWA'); if(n) document.getElementById('waEcho').textContent='We will message you on '+n; } catch(e) {}
+var form=document.getElementById('inv'), btn=form.querySelector('button[type=submit]');
+function val(id){return document.getElementById(id).value.trim();}
+function showDone(ok){
+  document.body.classList.add('sent'); window.scrollTo(0,0);
+  var wa=val('i_wa'); if(wa) document.getElementById('waEcho').textContent='We will message you on '+wa;
+  if(!ok){
+    var msg="Hi, I'd like to accept my invitation to Clubist. Here are my details:\n\nName: "+val('i_first')+' '+val('i_last')+"\nEmail: "+val('i_email')+"\nWhatsApp: "+wa+"\nInvited by: "+val('i_ref');
+    document.getElementById('waBtn').href='https://wa.me/971552141403?text='+encodeURIComponent(msg);
+    document.getElementById('fallback').style.display='block';
+  }
 }
-document.getElementById('inv').addEventListener('submit',function(){
-  var f=document.getElementById('i_first').value.trim(), l=document.getElementById('i_last').value.trim();
-  document.getElementById('subject').value='Clubist invitation: '+f+' '+l;
-  try { sessionStorage.setItem('clubistWA', document.getElementById('i_wa').value.trim()); } catch(e) {}
-  try { gtag('event','invitation_accept'); } catch(e) {}
+form.addEventListener('submit',function(e){
+  e.preventDefault();
+  document.getElementById('subject').value='Clubist invitation: '+val('i_first')+' '+val('i_last');
+  btn.disabled=true; btn.textContent='SENDING';
+  var fd=new FormData(form); fd.delete('_next');
+  try{gtag('event','invitation_accept');}catch(err){}
+  fetch('https://formsubmit.co/ajax/charlie@clubist.ae',{method:'POST',headers:{'Accept':'application/json'},body:fd})
+    .then(function(r){return r.json();})
+    .then(function(j){ var ok=(j && (j.success===true||j.success==='true')); try{gtag('event', ok?'invitation_email_ok':'invitation_email_failed');}catch(err){} showDone(ok); })
+    .catch(function(){ try{gtag('event','invitation_email_failed');}catch(err){} showDone(false); });
 });
 </script>
 </body>
