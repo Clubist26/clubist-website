@@ -45,6 +45,11 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(40px,11vw,56px);line
 .apps{margin-top:auto;padding-top:48px;text-align:center;font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:500;color:var(--stone)}
 .apps a{color:var(--ink);text-decoration:underline;text-underline-offset:4px}
 .apps p+p{margin-top:12px}
+.steps{list-style:none;border-top:1px solid var(--ink)}
+.steps li{display:flex;gap:16px;align-items:baseline;padding:16px 0;border-bottom:1px solid rgba(20,20,18,.2);font-size:16px;line-height:1.4}
+.steps li p{flex:1;min-width:0}
+.steps li span{font-family:var(--serif);font-size:26px;line-height:1;color:var(--green);min-width:18px}
+.steps b{font-weight:500}
 :focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 </style>
 </head>
@@ -62,8 +67,13 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(40px,11vw,56px);line
   </dl>
 
   <div class="cta" id="inapp" hidden>
-    <a class="btn green" id="escape" href="#">Open in Safari to book</a>
-    <p class="hint" id="escHint">Instagram can't open the Clubist app directly. This opens the class in your browser, then one more tap takes you to the app.</p>
+    <ol class="steps">
+      <li><span>1</span><p>Tap <b>&middot;&middot;&middot;</b> at the top right of this screen</p></li>
+      <li><span>2</span><p>Choose <b id="extName">Open in external browser</b></p></li>
+      <li><span>3</span><p>Tap <b>Open in the Clubist app</b> on the page that opens</p></li>
+    </ol>
+    <p class="hint">Instagram doesn't let links open other apps, so the class needs to open in your browser first.</p>
+    <a class="btn" id="escape" href="#" hidden>Open in your browser</a>
   </div>
 
   <div class="cta" id="normal">
@@ -1131,17 +1141,16 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(40px,11vw,56px);line
   var inApp = /Instagram|FBAN|FBAV|FB_IAB|musical_ly|BytedanceWebview|TikTok|Snapchat|LinkedInApp|Threads/i.test(ua);
   var android = /Android/i.test(ua);
   if (inApp) {
-    var esc = android
-      ? 'intent://clubist.ae/class' + (id ? '?c=' + id : '') + '#Intent;scheme=https;S.browser_fallback_url=' + encodeURIComponent(pageUrl) + ';end'
-      : 'x-safari-' + pageUrl;
-    var e = document.getElementById('escape');
-    e.href = esc;
-    if (android) { e.textContent = 'Open in your browser to book'; document.getElementById('escHint').textContent = 'Instagram can’t open the Clubist app directly. This opens the class in your browser, then one more tap takes you to the app.'; }
     document.getElementById('inapp').hidden = false;
     document.getElementById('normal').hidden = true;
+    if (android) {
+      // Android can hand the page to the browser directly
+      var e = document.getElementById('escape');
+      e.href = 'intent://clubist.ae/class' + (id ? '?c=' + id : '') + '#Intent;scheme=https;S.browser_fallback_url=' + encodeURIComponent(pageUrl) + ';end';
+      e.hidden = false;
+      document.getElementById('extName').textContent = 'Open in Chrome';
+    }
     try { if (typeof gtag === 'function') gtag('event', 'class_link_inapp', { class_id: id }); } catch (x) {}
-    // Try to jump out automatically; the button stays as a fallback
-    setTimeout(function () { window.location.href = esc; }, 250);
   }
   document.getElementById('open').addEventListener('click', function () {
     try { if (typeof gtag === 'function') gtag('event', 'class_link_open', { class_id: id }); } catch (x) {}
