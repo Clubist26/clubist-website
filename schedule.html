@@ -1392,6 +1392,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   var NOW = dubaiNow();
+  var INAPP = /Instagram|FBAN|FBAV|FB_IAB|musical_ly|BytedanceWebview|TikTok|Snapchat|LinkedInApp|Threads/i.test(navigator.userAgent || '');
   var ALL = RAW.trim().split('\n').map(function (l) {
     var p = l.split('|');
     var c = { id: p[0], date: p[1], time: p[2], name: p[3], staff: p[4], prog: +p[5] };
@@ -1515,7 +1516,7 @@ document.addEventListener('DOMContentLoaded', function () {
         '<div><div class="sname"></div><div class="ssub"><span class="sw ' + st[1] + '"></span>' + st[0].replace('&', '&amp;') + '</div></div>' +
         '<div class="sinst"><small>With</small><span></span></div>' +
         '<div class="sdur">' + (c.prog === 38 ? '' : '50 min') + '</div>' +
-        '<a class="book" href="' + c.url + '" target="_blank" rel="noopener" data-id="' + c.id + '">Book</a>' +
+        '<a class="book" href="' + (INAPP ? '/class?c=' + c.id : c.url) + '"' + (INAPP ? '' : ' target="_blank" rel="noopener"') + ' data-id="' + c.id + '">Book</a>' +
         '</li>';
     });
     html += '</ol>';

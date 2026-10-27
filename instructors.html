@@ -1188,7 +1188,7 @@ function show(s){
     items.forEach(c=>{const [sn,sk]=STUDIO[c.prog]||["Clubist","ev"];const li=document.createElement("li");li.className="row";
       li.innerHTML=`<div class="time">${c.time}</div><div class="cls"><div class="n"></div><div class="m"><span class="dot ${sk}"></span><span>${sn}</span></div></div><button type="button" class="copy">Copy link</button>`;
       li.querySelector(".n").textContent=c.name;
-      const b=li.querySelector(".copy");b.onclick=()=>copy(c.url,b,"Copy link");
+      const b=li.querySelector(".copy");b.onclick=()=>copy("https://clubist.ae/class?c="+c.id,b,"Copy link");
       ol.appendChild(li)});
     sec.appendChild(ol);
     wrap.appendChild(sec)});
