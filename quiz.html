@@ -351,7 +351,7 @@ footer{background:var(--bone);color:var(--ink)}
       <div class="qrow"><span class="k">Something new to try</span><span class="v" id="qnew"></span></div>
     </div>
     <div class="qctas">
-      <a class="btn light" id="qbook" href="https://clients.mindbodyonline.com/classic/ws?studioid=5740997&amp;stype=-7&amp;sView=day&amp;sLoc=0" target="_blank" rel="noopener">Book this class</a>
+      <a class="btn light" id="qbook" href="/schedule">Book this class</a>
       <a class="btn light" id="qgo" href="/studios">Explore the studio</a>
     </div>
     <button class="qretake" id="qretake">Take it again</button>
@@ -524,6 +524,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var book = document.getElementById('qbook');
   if (book) book.addEventListener('click', function () {
     var v = document.getElementById('qclass');
+    if (v) book.href = '/schedule#' + v.textContent.split(',')[0].toLowerCase().replace(/&/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
     t('quiz_book_click', { verdict: v ? v.textContent : '' });
   });
 });
