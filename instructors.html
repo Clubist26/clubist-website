@@ -86,7 +86,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--green);outline-offs
   <section id="pick">
     <div class="label">Clubist · for instructors</div>
     <h1>Your classes, <em>ready to share.</em></h1>
-    <p class="intro">Choose your name to see every class you're teaching. Each link opens the Clubist app straight on that class, so clients can book in one tap. Copy a single class for a story, or a whole day for WhatsApp.</p>
+    <p class="intro">Choose your name to see every class you're teaching. Each link opens the Clubist app straight on that class, so clients can book in one tap. Tap Copy link on any class and paste it into your story or a message.</p>
     <ul class="roster" id="roster"></ul>
   </section>
 
@@ -103,7 +103,6 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--green);outline-offs
     <div id="days"></div>
   </section>
 
-  <p class="note">Classes from the Clubist app timetable, up to 10 December 2026. Classes that have already started drop off automatically. If a class moves or a cover changes after this was published, its link may change too, so check with Charlie if something looks wrong.</p>
 </div>
 <div class="toast" id="toast" hidden></div>
 
@@ -1159,8 +1158,11 @@ slugs.forEach(s=>{const li=document.createElement("li");const a=document.createE
 
 function toast(m){const t=document.getElementById("toast");t.textContent=m;t.hidden=false;clearTimeout(toast.h);toast.h=setTimeout(()=>t.hidden=true,1800)}
 async function copy(text,btn,label){
-  try{await navigator.clipboard.writeText(text);btn.textContent="Copied";btn.classList.add("done");setTimeout(()=>{btn.textContent=label;btn.classList.remove("done")},1500)}
-  catch(e){toast("Copy is blocked here. Press and hold the link text to copy it instead.")}
+  let ok=false;
+  try{await navigator.clipboard.writeText(text);ok=true}catch(e){}
+  if(!ok){try{const ta=document.createElement("textarea");ta.value=text;ta.setAttribute("readonly","");ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.select();ta.setSelectionRange(0,text.length);ok=document.execCommand("copy");ta.remove()}catch(e){}}
+  if(ok){btn.textContent="Copied";btn.classList.add("done");setTimeout(()=>{btn.textContent=label;btn.classList.remove("done")},1500)}
+  else toast("Copy didn't work on this device. Try again in your phone's browser.")
 }
 function weekStart(d){const x=pd(d);const dow=(x.getUTCDay()+6)%7;x.setUTCDate(x.getUTCDate()-dow);return x.toISOString().slice(0,10)}
 
@@ -1181,16 +1183,14 @@ function show(s){
     const items=list.filter(c=>c.date===d);
     const sec=document.createElement("div");sec.className="day";
     const x=pd(d);
-    sec.innerHTML=`<div class="dhead${d===NOW.date?" today":""}"><h3><em>${DOW[x.getUTCDay()]}</em> ${x.getUTCDate()} ${MON[x.getUTCMonth()]}</h3><button type="button" class="copyday">Copy day</button></div>`;
+    sec.innerHTML=`<div class="dhead${d===NOW.date?" today":""}"><h3><em>${DOW[x.getUTCDay()]}</em> ${x.getUTCDate()} ${MON[x.getUTCMonth()]}</h3></div>`;
     const ol=document.createElement("ol");
     items.forEach(c=>{const [sn,sk]=STUDIO[c.prog]||["Clubist","ev"];const li=document.createElement("li");li.className="row";
-      li.innerHTML=`<div class="time">${c.time}</div><div class="cls"><div class="n"></div><div class="m"><span class="dot ${sk}"></span><span>${sn}</span></div></div><button type="button" class="copy">Copy</button><div class="url"></div>`;
-      li.querySelector(".n").textContent=c.name;li.querySelector(".url").textContent=c.url;
-      const b=li.querySelector(".copy");b.onclick=()=>copy(`${c.name} with ${fn}, ${fmtShort(c.date)}, ${t12(c.time)}\nBook here: ${c.url}`,b,"Copy");
+      li.innerHTML=`<div class="time">${c.time}</div><div class="cls"><div class="n"></div><div class="m"><span class="dot ${sk}"></span><span>${sn}</span></div></div><button type="button" class="copy">Copy link</button>`;
+      li.querySelector(".n").textContent=c.name;
+      const b=li.querySelector(".copy");b.onclick=()=>copy(c.url,b,"Copy link");
       ol.appendChild(li)});
     sec.appendChild(ol);
-    const cb=sec.querySelector(".copyday");
-    cb.onclick=()=>copy(`${fmtDay(d)} with ${fn}\n\n`+items.map(c=>`${t12(c.time)} ${c.name}\n${c.url}`).join("\n\n"),cb,"Copy day");
     wrap.appendChild(sec)});
   window.scrollTo(0,0);
 }
