@@ -116,7 +116,7 @@
 
     <div class="formerr" id="formerr" role="alert"></div>
     <button class="btn" type="submit" id="send">SEND REQUEST</button>
-    <div class="fine">Your request goes directly to Charlie. Your time off is confirmed once we come back to you.</div>
+    <div class="fine">Sending can take up to a minute, so keep this page open until you see the confirmation. Your request goes directly to Charlie. Your time off is confirmed once we come back to you.</div>
   </form>
 
   <div class="done" aria-live="polite">
@@ -124,11 +124,6 @@
     <h2>thank you.<b>request sent.</b></h2>
     <p id="doneText">Charlie has your request. We'll confirm your dates and cover once everyone's requests are in.</p>
     <div class="recap" id="recap"></div>
-    <div id="fallback">
-      <p>Your request didn't go through automatically. Copy the text below and send it to Charlie on WhatsApp so it isn't missed.</p>
-      <textarea id="fbText" readonly></textarea>
-      <a class="btn" href="https://wa.me/message/KM3AQS5GMH6GG1" target="_blank" rel="noopener">OPEN WHATSAPP</a>
-    </div>
     <button type="button" class="again" id="again">SEND ANOTHER REQUEST</button>
   </div>
 
@@ -138,7 +133,7 @@
 (function(){
   /* Weekly class schedule from Mindbody (week of 2 Nov 2026): [weekday 0=Sun, start minutes, class, instructor, room] */
   var SCHED = [[0,480,"Megaformer","Honor Easton","Mega"],[0,510,"Infra Sequence (LA Sculpting Concept)","Lexie Rich","Mind & Body"],[0,540,"HIIT & Run: Full Body","Minwa A","Dark"],[0,540,"Megaformer","Honor Easton","Mega"],[0,570,"Infra enCore","Emily Abbott","Mind & Body"],[0,600,"Lift and Load: Full Body","Minwa A","Dark"],[0,600,"Megaformer","Tara Assaf","Mega"],[0,630,"Infra Form (Mat Pilates Inspired)","Rhianne Bullivant","Mind & Body"],[0,660,"Strength: Full Body","Keelan Brisset","Dark"],[0,660,"Megaformer","Honor Easton","Mega"],[0,690,"Infra Form (Mat Pilates Inspired)","TBC","Mind & Body"],[0,720,"Megaformer","Phoebe Poulter","Mega"],[0,750,"Infra Shred","Keelan Brisset","Mind & Body"],[0,780,"Abs & Glutes","Lexie Rich","Dark"],[0,780,"Megaformer","Tara Assaf","Mega"],[0,810,"Infra Form (Mat Pilates Inspired)","Phoebe Poulter","Mind & Body"],[0,960,"Megaformer","Tara Assaf","Mega"],[0,960,"Infra Sequence (LA Sculpting Concept)","Lexie Rich","Mind & Body"],[1,420,"Lift & Load: Lower Body","Chad Brisset","Dark"],[1,420,"Megaformer","Tara Assaf","Mega"],[1,450,"Infra Shred","Molly Farrance","Mind & Body"],[1,480,"Lift and Load: Full Body","Chad Brisset","Dark"],[1,480,"Megaformer","Tara Assaf","Mega"],[1,510,"Infra Form (Mat Pilates Inspired)","Molly Farrance","Mind & Body"],[1,540,"Strength: Lower Body","Chad Brisset","Dark"],[1,540,"Megaformer","Tara Assaf","Mega"],[1,570,"Infra Sequence (LA Sculpting Concept)","Lexie Rich","Mind & Body"],[1,600,"Strength: Full Body","Keelan Brisset","Dark"],[1,600,"Megaformer","Roberto Julio","Mega"],[1,630,"Infra Form (Mat Pilates Inspired)","Molly Farrance","Mind & Body"],[1,660,"Abs & Glutes","Lexie Rich","Dark"],[1,660,"Megaformer","Roberto Julio","Mega"],[1,690,"Infra Shred","Chad Brisset","Mind & Body"],[1,720,"Megaformer","Roberto Julio","Mega"],[1,750,"Infra Sequence (LA Sculpting Concept)","Lexie Rich","Mind & Body"],[1,1050,"Infra Form (Mat Pilates Inspired)","Jess Casa","Mind & Body"],[1,1080,"Strength: Lower Body","Phoebe Poulter","Dark"],[1,1080,"Megaformer","Tara Assaf","Mega"],[1,1110,"Infra Sculpt & Flow","Jess Casa","Mind & Body"],[1,1140,"Lift & Load: Upper Body","Phoebe Poulter","Dark"],[1,1140,"Megaformer","Tara Assaf","Mega"],[2,360,"Lift & Load: Upper Body","Minwa A","Dark"],[2,390,"Megaformer","Roberto Julio","Mega"],[2,390,"Infra Form (Mat Pilates Inspired)","Jess Casa","Mind & Body"],[2,420,"Lift & Load: Upper Body","Minwa A","Dark"],[2,450,"Megaformer","Roberto Julio","Mega"],[2,450,"Infra Form (Mat Pilates Inspired)","Jess Casa","Mind & Body"],[2,480,"Lift and Load: Full Body","Keelan Brisset","Dark"],[2,510,"Megaformer","Roberto Julio","Mega"],[2,510,"Infra Sculpt & Flow","Jess Casa","Mind & Body"],[2,540,"Strength: Upper Body","Keelan Brisset","Dark"],[2,570,"Megaformer","Tara Assaf","Mega"],[2,570,"Infra enCore","Emily Abbott","Mind & Body"],[2,600,"Abs & Glutes","Lexie Rich","Dark"],[2,630,"Megaformer","Roberto Julio","Mega"],[2,630,"Infra Form (Mat Pilates Inspired)","Emily Abbott","Mind & Body"],[2,660,"Lift & Load: Lower Body","Keelan Brisset","Dark"],[2,690,"Megaformer","Roberto Julio","Mega"],[2,690,"Infra Shred","Chad Brisset","Mind & Body"],[2,750,"Megaformer","Tara Assaf","Mega"],[2,750,"Infra Sequence (LA Sculpting Concept)","Lexie Rich","Mind & Body"],[2,1050,"Non Heated - Form (Mat Pilates Inspired)","Molly Farrance","Mind & Body"],[2,1080,"Strength: Full Body","Chad Brisset","Dark"],[2,1080,"Megaformer","Honor Easton","Mega"],[2,1110,"Non Heated - Form (Mat Pilates Inspired)","Molly Farrance","Mind & Body"],[2,1140,"Lift & Load: Lower Body","Chad Brisset","Dark"],[2,1140,"Megaformer","Honor Easton","Mega"],[3,420,"Lift and Load: Full Body","Keelan Brisset","Dark"],[3,420,"Megaformer","Tara Assaf","Mega"],[3,450,"Infra Sequence (LA Sculpting Concept)","Lexie Rich","Mind & Body"],[3,480,"Lift and Load: Full Body","Keelan Brisset","Dark"],[3,480,"Megaformer","Tara Assaf","Mega"],[3,510,"Infra Form (Mat Pilates Inspired)","Molly Farrance","Mind & Body"],[3,540,"Strength: Full Body","Keelan Brisset","Dark"],[3,540,"Megaformer","Tara Assaf","Mega"],[3,570,"Infra Sequence (LA Sculpting Concept)","Lexie Rich","Mind & Body"],[3,600,"Lift & Load: Lower Body","Keelan Brisset","Dark"],[3,600,"Megaformer","Honor Easton","Mega"],[3,630,"Infra Shred","Molly Farrance","Mind & Body"],[3,660,"Abs & Glutes","Lexie Rich","Dark"],[3,660,"Megaformer","Roberto Julio","Mega"],[3,690,"Infra Form (Mat Pilates Inspired)","Molly Farrance","Mind & Body"],[3,720,"Megaformer","Roberto Julio","Mega"],[3,750,"Infra enCore","Emily Abbott","Mind & Body"],[3,1020,"Megaformer","Phoebe Poulter","Mega"],[3,1050,"Infra Sequence (LA Sculpting Concept)","Lexie Rich","Mind & Body"],[3,1080,"Strength: Full Body","Phoebe Poulter","Dark"],[3,1080,"Megaformer","Roberto Julio","Mega"],[3,1110,"Infra Stretch","Lexie Rich","Mind & Body"],[3,1140,"Lift and Load: Full Body","Chad Brisset","Dark"],[3,1140,"Megaformer","Roberto Julio","Mega"],[4,360,"Lift & Load: Lower Body","Minwa A","Dark"],[4,390,"Megaformer","Roberto Julio","Mega"],[4,390,"Infra Form (Mat Pilates Inspired)","Rhianne Bullivant","Mind & Body"],[4,420,"Lift & Load: Lower Body","Phoebe Poulter","Dark"],[4,450,"Megaformer","Roberto Julio","Mega"],[4,450,"Infra Form (Mat Pilates Inspired)","Rhianne Bullivant","Mind & Body"],[4,480,"Lift and Load: Full Body","Chad Brisset","Dark"],[4,510,"Megaformer","Roberto Julio","Mega"],[4,510,"Infra Shred","Keelan Brisset","Mind & Body"],[4,540,"Strength: Upper Body","Chad Brisset","Dark"],[4,570,"Megaformer","Tara Assaf","Mega"],[4,570,"Infra Form (Mat Pilates Inspired)","Phoebe Poulter","Mind & Body"],[4,600,"Abs & Glutes","Molly Farrance","Dark"],[4,630,"Megaformer","Roberto Julio","Mega"],[4,630,"Infra Shred","Phoebe Poulter","Mind & Body"],[4,660,"Abs & Glutes","Molly Farrance","Dark"],[4,690,"Megaformer","Roberto Julio","Mega"],[4,690,"Infra Form (Mat Pilates Inspired)","Rhianne Bullivant","Mind & Body"],[4,750,"Megaformer","Tara Assaf","Mega"],[4,1050,"Non Heated - Form (Mat Pilates Inspired)","Molly Farrance","Mind & Body"],[4,1080,"Strength: Full Body","Keelan Brisset","Dark"],[4,1080,"Megaformer","Honor Easton","Mega"],[4,1110,"Non Heated - Form (Mat Pilates Inspired)","Molly Farrance","Mind & Body"],[4,1140,"Lift & Load: Lower Body","Keelan Brisset","Dark"],[4,1140,"Megaformer","Honor Easton","Mega"],[5,420,"Lift & Load: Upper Body","Phoebe Poulter","Dark"],[5,420,"Megaformer","Molly Farrance","Mega"],[5,450,"Infra Shred","Keelan Brisset","Mind & Body"],[5,480,"Lift and Load: Full Body","Phoebe Poulter","Dark"],[5,480,"Megaformer","Honor Easton","Mega"],[5,510,"Infra Form (Mat Pilates Inspired)","Molly Farrance","Mind & Body"],[5,540,"HeroSculpt","Jess Casa","Dark"],[5,540,"Megaformer","Honor Easton","Mega"],[5,570,"Infra Sequence (LA Sculpting Concept)","Lexie Rich","Mind & Body"],[5,600,"Strength: Upper Body","Keelan Brisset","Dark"],[5,600,"Megaformer","Molly Farrance","Mega"],[5,630,"Infra Form (Mat Pilates Inspired)","Jess Casa","Mind & Body"],[5,660,"Lift & Load: Lower Body","Keelan Brisset","Dark"],[5,660,"Megaformer","Roberto Julio","Mega"],[5,690,"Infra Sculpt & Flow","Jess Casa","Mind & Body"],[5,720,"Megaformer","Roberto Julio","Mega"],[5,750,"Infra Sequence (LA Sculpting Concept)","Lexie Rich","Mind & Body"],[5,990,"Infra Sequence (LA Sculpting Concept)","Lexie Rich","Mind & Body"],[5,1020,"Strength: Upper Body","Chad Brisset","Dark"],[5,1020,"Megaformer","Roberto Julio","Mega"],[5,1050,"Infra Stretch","Lexie Rich","Mind & Body"],[5,1080,"Lift and Load: Full Body","Chad Brisset","Dark"],[5,1080,"Megaformer","Roberto Julio","Mega"],[6,480,"Megaformer","Tara Assaf","Mega"],[6,510,"HIIT & Run: Full Body","Chad Brisset","Dark"],[6,510,"Infra Form (Mat Pilates Inspired)","Molly Farrance","Mind & Body"],[6,540,"Megaformer","Tara Assaf","Mega"],[6,570,"Lift and Load: Full Body","Chad Brisset","Dark"],[6,570,"Infra Form (Mat Pilates Inspired)","Molly Farrance","Mind & Body"],[6,600,"Megaformer","Tara Assaf","Mega"],[6,630,"Strength: Full Body","Chad Brisset","Dark"],[6,630,"Infra Sequence (LA Sculpting Concept)","Lexie Rich","Mind & Body"],[6,660,"Megaformer","Roberto Julio","Mega"],[6,690,"Abs & Glutes","Molly Farrance","Dark"],[6,690,"Infra Shred","Chad Brisset","Mind & Body"],[6,720,"Megaformer","Roberto Julio","Mega"],[6,750,"PT / Event Class - All Studios","Keelan Brisset","Dark"],[6,750,"Infra Sequence (LA Sculpting Concept)","Lexie Rich","Mind & Body"],[6,780,"Megaformer","Roberto Julio","Mega"],[6,810,"Lift & Load: Lower Body","Chad Brisset","Dark"],[6,810,"Infra Stretch","Lexie Rich","Mind & Body"],[6,960,"Megaformer","Roberto Julio","Mega"],[6,1020,"Infra Stretch","Lexie Rich","Mind & Body"]];
-  var ENDPOINT = 'https://formsubmit.co/ajax/charlie@clubist.ae';
+  var ENDPOINT = 'https://formsubmit.co/charlie@clubist.ae';
   var DEADLINE = Date.parse('2026-11-02T19:00:00+04:00');
   var NAMES = ['Chad Brisset','Emily Abbott','Honor Easton','Jess Casa','Keelan Brisset','Lexie Rich','Minwa A','Molly Farrance','Phoebe Poulter','Rhianne Bullivant','Roberto Julio','Tara Assaf'];
   var ROOM = {'Mega':'Megaformer Room','Mind & Body':'Mind & Body Room','Dark':'Dark Room'};
@@ -278,26 +273,24 @@
     fd.append('Request codes',codes.join(' ; '));
     fd.append('Sent',new Date().toLocaleString('en-GB',{timeZone:'Asia/Dubai'}));
 
-    btn.disabled=true; btn.textContent='SENDING';
-    var text=buildText(name,bs,note);
-    fetch(ENDPOINT,{method:'POST',headers:{'Accept':'application/json'},body:fd})
-      .then(function(r){return r.json();})
-      .then(function(j){ finish(!!(j&&(j.success===true||j.success==='true')),name,bs,text,totalCls); })
-      .catch(function(){ finish(false,name,bs,text,totalCls); });
+    btn.disabled=true; btn.textContent='SENDING, PLEASE WAIT';
+    try{ sessionStorage.setItem('hol-recap', JSON.stringify(bs.map(function(x){return fmtY(x.s)+(x.e!==x.s?' to '+fmtY(x.e):'');}))); }catch(err){}
+    try{gtag('event','holiday_request_submit');}catch(err){}
+    fd.append('_next', location.origin+location.pathname+'?sent=1');
+    var post=document.createElement('form');
+    post.method='POST'; post.action=ENDPOINT; post.style.display='none';
+    fd.forEach(function(v,k){ var i=document.createElement('textarea'); i.name=k; i.value=v; post.appendChild(i); });
+    document.body.appendChild(post);
+    post.submit();
   });
 
-  function finish(ok,name,bs,text,totalCls){
-    try{gtag('event', ok?'holiday_request_sent':'holiday_request_failed');}catch(err){}
-    btn.disabled=false; btn.textContent='SEND REQUEST';
-    document.getElementById('recap').innerHTML = bs.map(function(x){ return '<div>'+fmtY(x.s)+(x.e!==x.s?' to '+fmtY(x.e):'')+'</div>'; }).join('');
-    document.getElementById('fallback').style.display = ok ? 'none' : 'block';
-    document.getElementById('doneText').textContent = ok ? 'Charlie has your request. We’ll confirm your dates and cover once everyone’s requests are in.' : 'Almost there, '+name.split(' ')[0]+'.';
-    if (!ok) document.getElementById('fbText').value=text;
-    document.body.classList.add('sent'); window.scrollTo(0,0);
+  if (new URLSearchParams(location.search).get('sent')){
+    var rc=[]; try{ rc=JSON.parse(sessionStorage.getItem('hol-recap')||'[]'); sessionStorage.removeItem('hol-recap'); }catch(err){}
+    document.getElementById('recap').innerHTML = rc.map(function(t){ return '<div>'+esc(t)+'</div>'; }).join('');
+    document.body.classList.add('sent');
   }
   document.getElementById('again').addEventListener('click',function(){
-    blocksEl.innerHTML=''; addBlock(); document.getElementById('note').value='';
-    document.body.classList.remove('sent'); window.scrollTo(0,0);
+    location.href = location.pathname;
   });
 
   addBlock();
