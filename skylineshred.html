@@ -539,12 +539,16 @@ const KEY = "skylineshred-rsvp";
   $$('.rv').forEach(el => io ? io.observe(el) : el.classList.add('in'));
 
   /* ---- floating CTA: after the hero, hidden near the form ---- */
-  const fl = $('#float'); let pastHero = false, nearForm = false;
-  const upd = () => fl.classList.toggle('on', pastHero && !nearForm);
-  if (io) {
-    new IntersectionObserver(([e]) => { pastHero = !e.isIntersecting; upd(); }).observe($('.hero'));
-    new IntersectionObserver(([e]) => { nearForm = e.isIntersecting; upd(); }, { rootMargin:'0px 0px 120px 0px' }).observe($('#rsvp'));
+  const fl = $('#float');
+  function upd(){
+    const vh = window.innerHeight;
+    const pastHero = $('.hero').getBoundingClientRect().bottom < vh * .35;
+    const nearForm = $('#rsvp').getBoundingClientRect().top < vh;
+    fl.classList.toggle('on', pastHero && !nearForm);
   }
+  window.addEventListener('scroll', upd, { passive:true });
+  window.addEventListener('resize', upd);
+  upd();
 
   /* ---- account question ---- */
   let account = '';
@@ -601,13 +605,13 @@ const KEY = "skylineshred-rsvp";
           const res = await r.json().catch(() => ({}));
           if (!res.ok) throw new Error('send');
         } else {
-          const r = await fetch(MAIL, {
-            method:'POST',
-            headers:{ 'Content-Type':'application/json', 'Accept':'application/json' },
-            body: JSON.stringify(Object.assign({ _subject: 'Skyline Shred RSVP: ' + d.firstName + ' ' + d.lastName, _template: 'table' }, row))
-          });
-          const res = await r.json().catch(() => ({}));
-          if (!r.ok || String(res.success) !== 'true') throw new Error('send');
+          const fd = new FormData();
+          fd.append('_subject', 'Skyline Shred RSVP: ' + d.firstName + ' ' + d.lastName);
+          fd.append('_template', 'table');
+          fd.append('_captcha', 'false');
+          Object.keys(row).forEach(k => fd.append(k, row[k]));
+          const r = await fetch(MAIL, { method:'POST', headers:{ 'Accept':'application/json' }, body: fd });
+          if (!r.ok) throw new Error('send');
         }
       }
       try { gtag('event','rsvp_submit',{ event_name:'skyline_shred', has_account:d.account }); } catch(_){}
