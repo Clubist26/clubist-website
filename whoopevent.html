@@ -6,12 +6,12 @@
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-ZNTV1XHZZ7');</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>The Long Game | WHOOP × Clubist × Unilabs</title>
+<title>Rewriting the rules of performance with WHOOP | WHOOP × Clubist × Unilabs</title>
 <meta name="robots" content="noindex, nofollow">
 <meta name="description" content="An exclusive invitation. Sunday, 15 November 2026 at Thirtyfour, Clubist, Dubai Marina.">
-<meta property="og:title" content="The Long Game | WHOOP × Clubist × Unilabs">
+<meta property="og:title" content="An exclusive invitation | Rewriting the rules of performance with WHOOP">
 <meta property="og:description" content="An exclusive invitation. Sunday, 15 November 2026 at Thirtyfour, Clubist, Dubai Marina.">
-<meta property="og:image" content="https://clubist.ae/og-thelonggame.jpg">
+<meta property="og:image" content="https://clubist.ae/og-whoopevent.jpg">
 <meta property="og:url" content="https://clubist.ae/whoopevent">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#000000">
@@ -46,9 +46,9 @@ a{color:inherit}
 /* ---------- layout ---------- */
 .page{display:block}
 .visual{--tb:236px;position:relative;height:100svh;min-height:700px;max-height:1040px;overflow:hidden;background:#000}
-.visual img.hero{position:absolute;left:0;top:-56px;width:100%;height:calc(100% + 56px);object-fit:cover;object-position:50% 30%}
+.visual img.hero{position:absolute;left:0;top:-24px;width:100%;height:calc(100% - 40px);object-fit:cover;object-position:50% 30%}
 .visual::before{content:"";position:absolute;z-index:1;left:0;right:0;top:0;height:30%;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,.2) 55%,rgba(0,0,0,0))}
-.visual::after{content:"";position:absolute;z-index:1;left:0;right:0;bottom:0;height:270px;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,.5) 30%,rgba(0,0,0,.86) 62%,#000 100%)}
+.visual::after{content:"";position:absolute;z-index:1;left:0;right:0;bottom:40px;height:250px;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,.5) 30%,rgba(0,0,0,.86) 62%,#000 100%)}
 .lockup{position:absolute;z-index:2;top:0;left:0;right:0;display:flex;flex-direction:column;align-items:center;padding:calc(24px + env(safe-area-inset-top)) 16px 0;--x:13px;--h:13px;color:#fff;text-align:center}
 .lockup .logos{display:flex;align-items:center;justify-content:center;gap:var(--x)}
 .lockup .hair{display:block;width:28px;height:1px;background:rgba(255,255,255,.6);margin:16px 0 14px}
@@ -78,7 +78,7 @@ section.block.first{padding-top:48px}
 .partner{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:26px 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);margin-bottom:30px}
 .partner .eyebrow{color:var(--grey);font-size:11px;line-height:1.6}
 .partner .eyebrow b{display:block;color:var(--white);font-weight:inherit}
-.partner img{height:40px;width:auto;flex:none}
+.partner img{height:32px;width:auto;flex:none}
 section.block.test{padding-top:36px}
 .partner img.wl{height:17px}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
@@ -260,18 +260,91 @@ footer .flock .x{font-size:calc(var(--h)*1.1);opacity:.9}
 footer p{font-size:14px;line-height:1.6;color:var(--grey)}
 footer a{color:var(--white);text-decoration:none;border-bottom:1px solid #555}
 
+/* compact intro */
+section.block.intro{padding-top:36px}
+.intro .lede{font-size:19px;line-height:1.35;margin:0 0 14px}
+.intro .body{font-size:15px;line-height:1.5;color:#BDBDBD}
+/* compact panel grid */
+.panel{list-style:none;display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--rule)}
+.panel li{display:flex;flex-direction:column;gap:5px;padding:16px 14px 15px 0;border-bottom:1px solid var(--rule)}
+.panel li:nth-child(odd):not(.mod){}
+.panel li.mod,.panel li.wide{grid-column:1 / -1}
+.panel li:nth-child(3){padding-left:14px;border-left:1px solid var(--rule)}
+.panel .tag{font-size:10px;color:var(--grey)}
+.panel .mod .tag{color:#fff}
+.panel .nm{font-size:20px;line-height:1.15}
+.panel .mod .nm{font-size:24px}
+.panel .rl{font-size:13px;line-height:1.35;color:var(--grey)}
+/* venue strip */
+section.block.venue{padding:28px 0 40px}
+.venue-strip{text-decoration:none;color:inherit;margin-bottom:0}
+.venue-strip .vmeta{display:block;color:var(--white);margin-top:6px;font-size:10px;letter-spacing:.12em}
+.venue-strip .vmeta i{font-style:normal;opacity:.5;padding:0 .4em}
+.venue-strip .venue-logo{display:block;flex:none;height:15px;width:112px;color:#fff}
+@media (max-width:999px){
+  section.block{padding-top:48px}
+  section.block.test{padding-top:32px}
+  section.block.intro{padding-top:32px}
+  .h{font-size:26px;margin-bottom:14px}
+  .body{font-size:16px}
+  .metrics{margin-top:24px}
+  .metrics li{padding:14px 0}
+  .metrics .num{font-size:44px}
+  .markers li{padding:11px 0 10px}
+  .sched li{padding:14px 0}
+}
+/* ===== sectioning: cards and spacing instead of rules ===== */
+:root{--card:#101518;--card2:#1A2227}
+.block > .inner > .eyebrow{border-top:0;padding-top:0;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.block > .inner > .eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;flex:none}
+.rsvp.block > .inner > .eyebrow{border-top:0}
+/* partner and venue cards */
+.partner{border:0;background:var(--card);border-radius:18px;padding:20px;margin-bottom:26px}
+.venue-strip{margin-bottom:0}
+section.block.venue{padding:40px 0 56px}
+/* panel cards */
+.panel{border-top:0;gap:8px}
+.panel li{background:var(--card);border-radius:16px;padding:16px 16px 15px;border:0}
+.panel li:nth-child(3){padding-left:16px;border-left:0}
+/* metric tiles */
+.metrics{border-top:0;display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:24px 0 8px}
+.metrics li{display:flex;flex-direction:column;align-items:flex-start;gap:12px;border:0;background:var(--card);border-radius:16px;padding:18px 16px 16px}
+.metrics .num{font-size:44px}
+.metrics .txt{font-size:16px}
+.metrics .txt small{font-size:12.5px}
+/* biomarkers in one card */
+.markers{background:var(--card);border-radius:16px;padding:4px 16px 18px;gap:0 18px;margin-top:0}
+.markers li{border:0;padding:14px 0 0}
+/* schedule as a timeline */
+.sched li,.sched li:first-child{border:0;padding:0;grid-template-columns:84px 1fr;gap:0}
+.sched .t{padding-top:1px}
+.sched .w{position:relative;padding:0 0 24px 22px;border-left:1px solid #2E3A40}
+.sched .w::before{content:"";position:absolute;left:-4px;top:7px;width:7px;height:7px;border-radius:50%;background:#fff}
+.sched li:last-child .w{border-left-color:transparent;padding-bottom:4px}
+/* RSVP */
+.rsvp .photo-note{border:0;background:var(--mist);border-radius:12px;padding:14px 16px}
+/* confirmation ticket */
+.ticket .tk-logos{border-bottom:0;padding-bottom:4px}
+.tk-facts{border-top:0;background:var(--card);border-radius:16px;padding:8px 16px}
+.tk-facts li{border:0;padding:9px 0}
+.tk-notes{border-top:0}
+.tk-notes li{border:0;padding:6px 0 6px 18px}
+.tk-notes li::before{top:16px}
+.ticket .sched .w{border-left-color:#2E3A40}
+/* hero title is now the event name */
+.title h1{white-space:normal;font-size:clamp(32px,9vw,80px);line-height:1;margin-bottom:0}
 @media (min-width:600px){
   .lockup{--h:16px;--x:16px}
 }
 @media (min-width:1000px){
   .page{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start}
-  .visual{position:sticky;top:0;height:100vh;max-height:none;--tb:300px}
+  .visual{position:sticky;top:0;height:100vh;max-height:none;--tb:340px}
   .visual img.hero{object-position:50% 56%}
   .visual img.hero{top:0;height:calc(100% - var(--tb) + 40px)}
   .visual::after{bottom:calc(var(--tb) - 40px);height:120px;background:linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,.6) 55%,#000 100%)}
   .title .eyebrow{margin-bottom:18px;font-size:13px}
   .title .sub{font-size:24px}
-  .title h1{font-size:clamp(56px,5.6vw,96px);white-space:nowrap}
+  .title h1{font-size:clamp(44px,4.4vw,72px);white-space:normal}
   .lockup{--h:17px;--x:18px;padding-top:36px}
   .lockup .when{font-size:11.5px}
   .title .when{font-size:12px}
@@ -302,47 +375,55 @@ footer a{color:var(--white);text-decoration:none;border-bottom:1px solid #555}
     </div>
     <div class="title">
       <p class="eyebrow">An exclusive event invitation</p>
-      <h1>The Long Game</h1>
-      <p class="sub">Rewriting the rules of performance with WHOOP</p>
-      <p class="when eyebrow">Sunday, 15 November 2026<br><span class="din">2:30</span> PM <i>/</i> Thirtyfour at Clubist, Dubai Marina</p>
+      <h1>Rewriting the rules<br>of performance<br>with WHOOP</h1>
+      <p class="when eyebrow">Sunday, 15 November 2026<br><span class="din">2:30</span> PM <i>/</i> Clubist, Dubai Marina</p>
     </div>
   </header>
 
   <!-- ========== CONTENT ========== -->
   <main class="content">
 
-    <section class="block test intro-band">
+    <section class="block intro">
       <div class="inner">
-        <div class="partner">
-          <h2 class="eyebrow"><b>The invitation</b>Presented with</h2>
-          <img class="wl" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAhwAAABYCAYAAAC+qC4vAAAqSklEQVR4Xu3dCbh1bznH8dsYSmSehaRQqGRIxkpokkwZUpGEyFyGVKY0T1KaFSWVIkrmKSJCSIlMmefMQ67Pfp/F+Z//OWfdz9pr7TXs53td+3r/db3vOXvvtdbz3M99/+7f/Tqvfe1rnx0RHxwX8zoR8VMR8TkR8S89f3duvNevi4gvSryRV0TEp0TEqxN/d27eJyKeGhFv0/NGXhsR94iIx434hm9Uft4VEvfJgyLiW0f83XNzk4h4TETqsz8gIu479xueiDcs9967RsTVyst/v2NEvGVEXCki3igi3iAi/ici/rWsFX8bEX8WEX8cEb8XEa+MiN+PiD+PiH+e6L0eO67F20fEu5fr9B4R8c7l/7tKRLxxeb1uRPxnuVaviYi/KmvhH5Zr5Xr9Ufn//2PDX+p1I+JpEfGmifXtSRHxFYnv4vUi4mERcZuI3Zpcy3+X5+fvyzXxzPxWRLy0XJu/Hvhzp+AtIuLTI+KzIuK9ylr5DxHxCxHxXRHx4+U+i9ePiN+MiJtH7Dbqi/iQiN0C8ztTvOMRcdN8VGJjxk9HxN+M+Lun5AMj4poRuxv5Iv4uIl428hsRaLxtxG7T6aPvoV0bNZ/dQr8l3qrccx8UEdeLiGtExDtExJXLvdC3ZpzG5mZj+8uyaP5aRPxiRPxGCUr+a0tf3gER5Lku7x+xu1bXKcHGW5dA0Dpfgw3y3yPiH8tmZ83/5Yj4pbK2CCK3RBdMZ9Yu936WN4vYXYN9ERBB0Gd9F3y8qGzk/vyLfX/BHrxbOWTZn34iIh5V7pt3iYiPjYjvLAc2B9F/diO+ICI+P2K3uFzE25WbeekBx9Uj4lqJL9ApzBfkwVo6FpSPTAQb+O3yGptslJ79e2tii5/pPN48YrfAWSw+opxYLJxj4D52wvZyEvqEiPi3iHhVRLwwIp4XET8fEX86xi/bOIK9d4qIG5ZrJUvtQNiXhczgZ8tWecmoCmScYJ22HWZ+MiKeH7ELGAUla2eq53vsnyswcvDzkgC4U8l6qFI8qyQD7GuHQjD1kJI9E0PIiHWf2d762Ii4fUR8TQmWHthlOAQRbtyL8Hdtek/p0iML5QYlxduHU5ZFbg10wV6Gn43YpbMajSw2mKuWAOCTygm55iS3DzY1mROv25YN7Yci4pkl+yor0vh/bDoCANfp40vgJpA7BIJRgY3XF0TEr0TEMyLih0vppXFYlMZkHr3uEBHfFxFPmCDDfRbWDCUU92L33CpLKbHKxPxTRHxzRDyiZNnuosQiiJCisUn1BRyQrlMbVNdbIhYvp7JMqvfXSz15DUiR2hD6oK9RJho7sm5sF5kGp9dPLpu+uv5cOJ2/X3lZQAUeauZS+cceePhuPjQibhcRNy2n3DkRfNB2KV/LqtrsaMycchuHR2njqyPiVhHxyIj47ohJS1+ylPSPsiu0Gkp6Mm6e2R+IiM+LiK8vJVOZDlqWz7S42Jx+JikGtel9wOG/yzRSijbnDD7zGkRrrpHMkmCqDw+7QKrR6MPicPeIeE5E3DMi3jti1mDjNA42Fi0n6IeWk1TmILE1PP/q498REU8vAYeU+lKgKVPCvk/ZfAgqXbvGPDhA3K9kOmQ+poIIWZChvNaVcfwpGfGrEbuGDKVY+xaNyYsj4gbdaYZoKxOZ+sc2vzlPQRfhwZTS6UPJ4edWkgmgAHayyUCAp1TUaJzHm5SMho1cypPmacnQENy51KjVgpUXjwVr2TeU8pKMj26gJSNo1aX1/eVEmzkkNcZHiU0jyPfKKpTOsbFRcnUAONl04X/TlSixuV+Vd3Q+SWr488pd4GCTsllloJGwCS4N5SHpvYwi+3eL2GYNaIcVtfYh5ax1WTtVo3EWdBJa9bSqXT9ZelwKsqvfFBHfExEfkxRQrxVr2MeVEoWAQzZqLdhTHJC05T+4tOU25kH7uuf9yyN2B40xodGw11zxxA8VWJBnCEK0xQt47EsCER1A/9QFHP6hzSpTJ3UisgkuDWnGPj+RDtkN2pWl40LR1mS6BP6ktK41Gqdx4lFDJepy8ji5SKwJ65VDBeH6V0XsdARbQxaDjxDtyoetLCg8iQ1G54J77hbJg2BjfDwjSqYC10zbbxa+Orx0Tu65nk/llG8re9aty/1r/6LNeuHJ0gjFsU2rD//YJri0eiq1LOFMH9rwBFeHbB8aio3hw5P/WI3MTdBonMSCwwju0RFx7Y18NQ4X9yq6Bqe4rcBnR/ZJwNFnU7AWaOqIBr9y5A1v6dgf+zyTDoXS1t2KZmusTAcvFq24ggoZePYS9h+NC4IOImKZSOLSWxZdz1NOlh+IPWxamU3bJihdxsRnCQicdKdoE+rjDyLiJX1/aSFYTDObhOCJeGcNniKNwyEVT6ehC2XM1kkGXXRQ6rJOOf6UMSTCdg9aVyxsDic2zs47wOIzVl3f5/G5lFqkjNfS4n4e1i9OtZ3J01g4YNkclM2J9zhUunY2BtfR9XCtXBt6GdeKv4JrlylPZ3APfGMxI3PS5jy7dazJDrZaRId0DQpWSBcIM71kvvYJYLRTf2l5Tplw7Wuy5zPRaHT3LbGwDipeLX62oJl4+KNLoOPv/vzJG8pCYdMSsfSJQm2CNsOlbNxOcdKPGbTYWSTXgFpoxqnOgr/2BbcxLk4dDgVaKMfARsVameMkw6eXl43D5mXtUJY9mTXsTngCA6lc97HDjNQqcbeMpIBon0UUDJAsZk5wPzJwcZ8Ta60T4P3LhrwvFnuZamszF0pO0g5ZAg4HRGVz1+rkJuha2QsEH8SANgr3j45E10oJfV/Bqg3vjuU+ECCyuN8yvl/ZKmMRhtI9O8TDnhsNGzZ4QfaQCoMDOeE163odT0MCoZMIYAUx317acLVF04LSd3jPdEhGQ/hdDML+83QEa9OyefW1XVk8bIZLCTikIr368DAKqjJalbnRd5/tCLKoZLqMGseBA8HDk946F2GDkh6lOuccKMjImspZzDxvXgRkNjwBiz59GxvrY2sIt1GHhX26T+jKeA/YyBiGraFcCsHWp5U2xn1bSWUNCPZcK74I0tuyGxlcK2uil82C06sSO62MTIfgw0mV0ZgSyVANkE1ScCUANetq6a7V++A73XdDFxi6hvZkey3BtLk4vDZ0nwzRUsqa3Dti1zgxhoWCNUEgycfHs+xP19l71xr7JWXP3c3iOR1w2LRsXn0BR1fCUJubO43vw1mwMgIyQ9pkONaAPudsepWnyFLKW4150Zpo8822Up8FlTmbcSpzm9fYAmuLqIXKy6nofYuolbDVgjoEAYxTlIWO8dC+i/3UWEMZJz0wOffpPHyHWpy9DPYaez0WYMqUeNEBua8+o9ipK8MMQfDCV4So1Ptv5BAQspYnypQ10IJKBF6r9xFAfm1EfO5I1vTWCzNTCJ0lIxyWWd7Lil6mdHO6dGLTsnllYCqyhHYt9UeZgAxSwdJJa0CwIejow4V1sln6AtuYHiULJllDgw3Pv64CG7/F6LkTBBunEXw4TTMh4x1g0vBQ8bNat/r0jaf/qvfCIclpkEFT3/Tn86C5o8/xndk86O/GDjZOQwsiQ2WTc5K16Q01T7RmK/ll1rjG5VGSct1NcLev1eK++dSBpZnzoAuyvwoiyRYupxM5HXB0fbSZgTyCjSmdzLIYway+1YfPRsSTTTPOiVSr9r+M0M/FdbJpHDdOFjYwyvBaPBtqrwYtSY/O8Zx4D1LsxGbmhEgfK8XUwm1Y0LGEtek86E4IRDMmhaexqD+5fEcEmJ7/Qx82XBcjx90vgg/ZjyGo8TutL9HXaQ3Y0B0KlFcM06tBWfOLkyMzRuMscajNS32nDyIgm+K+oq990QecOSVI+5hEuQZsHhalDDxFtjYuulEHMZjW10+s+2c7HC5s0NL7HCKHnljHgv6CMFW62II4RJukrESEKfhYGsT23tt7DnhjauK+E86rskJza1XcK9of3TuyFfQftfi3PFXG6l46RsyyMUyPaLoGGhDBSl+TyGic9YtsXtmN2aaY6aKYCkFPdmw7wdpa6oUyNplatmyNYW1zLzyN+fAMf3bZoGsXDpu5hUo5Y2gZYypsZjRiWl+d3mpP8dT8hkddaao3OAACTO2h2cNEh89uMyEw5eA5d1B4Gml03Q9fGBG/X/m90BH6dz7bkM6LxiV0IhFo0lxlsV54vg4WmJ+1QHX9w5nSg00xU86YCjVbbVsZ6BwypaK58dDxOckowT3oQ+p3je1ggrPsRq2hj440gYrSxU5BvlCc5KXtBR+13WXEjbwBagOxKZAJpouhfajBtSHWVOrSMbRU6EdMKHVP1QrzBYWCw6xIvnE2MmAmxtZMc9fhdbNDBXvnPYhZcWXnhDlXZOoGzURnxHBrGdveOblmUDvVedM4TqjT1fF1aNTwo6X+vhbvFvc4YyEdHZmDUIc0vXR99lAyJbIaXxaxy8pm8VmVX3yGtZhlyY7Tdrwg+yELtHiCjqGdL41LyHB4TrKHCIGwUiz/lck5L+Bwc2eFQNlZH2PTzVXIPMBdu+8a0LKU6a/W/rcWT5HG+Lj/nfxvVPmjlSfuktRpLQntmfwDmAzVBB2CMen+zDyiqSCKlIWSkc3SBRs6UdaQmT0J8S+didbqGohIl5KRWisqFDJN2W5TMHg7SKXivIBD6tJmlpk8SqCVmWY6Np35WAZRn57gNcBTJBPlazuqTV02tgOnTrXvGvtpzzTDpbW6POrQEHA8otKa2UbWGRIdGtlfpZ2awND6y1NEi7DPvEZoOe5aWvaz6Mpzf2YOXI3zocN8VMW9w8OK5mnySsVFtc2sBbjoPWsrPibXSo4+llpay9h23QZEsJkLr+xFKNQ4PrqWtppSCkM/9t9Duj6WBMGkUz/tSRZGRLo7MuXXsdGNIqOUaXEHgSiHzzUHGx00BayvCfaz0AX6vlyzxnB+rLS6Z+Hdk5lFthcXBRw2s4wg0eaYHZw2Fp27aGbcbjeUbg0wbnJy7WNNniKN8SEqZm+cxcwDZYUxrIyXAOdT2hVC8CzcTAkaDykgVR9nzFSTAaY189myFvJLh9DVvceeO4tsVG0nT+OyGKL27IoOxmuUGTqTctHDx9xFZiDTjqYGlJkyOxYCjezYdip3w4zWgI6DzEwJCy5xVubaNLYFofbnJa38IT3PZKrWGGjp6NDitGjuRwZr3WcN9L8YinKzckomYwmtyT7T0lqU94WWg9dLtsvIoDhdOc2bYz/oOMwwysDLavI9vC/az85RsEnaLA+FVh4llT66se1Zxe6cSLkqp2Rq8oxeeOo3jg8nvxrrbsO8TKzM6LHWhqC7ZiOTruf30LfujYHsBo+DbNnLGuWzcHzdGhwxzdqoEZEaFHf9rX0RB4aOJmPiCeWUjPfTXvQ9eDY1m1sfNkmbZbZOuS/qTZlxyVLJa3mATYvMBm1SyVtJuTby6Mi6bUXHhdM/6+ixh68tBQeKx5dJthlkGsyJOcQMKHqRW2feVEHN/QkVKfC14R68b0V7L22ge/1Qe8oWYQeRHXvh2cgGx4PpCzjUgbJ1UtHoviOWM0izZYWVatZrUeQrS1018QVQra/FU6QxLuqsN0n+SOU2mzGb8C1Dkc93IBtU1XyH+6Azho15BmMXaj7DWtGI8MSKUvBND1wC2xoC8pr9T1klW/4bRF/AYdGyuWVas2yWGcHjvjg5XCf5Q9SwMu99blwHQVRGma3L4DfmfsONg2MhsIllvRx4IQg4tlhKOY3nnEAug2wso6OMk+9QmCgR9WbnTD0rYjcTaesorXCMzY6YMElW0DHpJrhxZPmza4D7NnvPDqIv4IDNLdNK12UeMj9zH7gGZhbdLjuzBmGl8tANkl8Kd8isEKixHRhXqWtnFt/O/OdY2qaZZNGpZL12ZGN1rUzFtStsuj3L5qNMPVp+KThxm3abmf9kL3HPZ7oRG2djoN7lxsSfgwPv7AGHByJrgcyPY8pRw04n2bHtWf3JEqBmJ4Ttg8p7LZ4ijXGxQdrIMhCLPaMidb0FXhyxs2zPIMC3jmSCt1r8zI9OmvdB99CSZ6SMjQPg0yPiVckfLGt+zeTfbVwegV320C3Am+KZ+D8y2QjpGGWVTEuTTXNKl7i3rRBWSlHKciydblhbxnpZe68238Zx0XndcATM8NwBUzvXjizH05IlVN+nEuYUZRWncT87Qzfe/ViyGx2yHLqnMjjAZi0QGpfHPZ7pfIRnKFt+GUQm4ADhWcbLohs8NlWUJNo15KcPHiKZse3SR1TQmddUn6kbgJdBsLG1Hv1GP1rWdGZlMHfjOVMvHAtFJjarytdWP4XzqPVJxjKDcnU2e7wlpPhpbqT7++hMHpsnxzCMAMkGHALgSQOO7BuxyUlZZoxBRKMPjti15IxJJ6zM2K+qXb8k8cs5AN69jPY+L+3khveAPLSYbY0N6+NMqlxqTDnl2E5DjYh3rMgcsjDPOARvERoOU0oz/g0U+Z67GtvtDIZgmeKbQSusLptjRBlJcJhxFFVOpNtTKmzksXdl9uwObrAZbc1gsgGHTc7gJ33lfVkRD7F2sMyGX4N0clZYmZ0D4zR4vYhdq1wfgi6nkbEviAcus0C5GY7xNNS4ZI2tnJhBZm8NpcQp6Cz/ze/oK5dY+3S7PbWixt2HtfG6SeGd0701NVtf3xramHUXZQIOxpLK9S3gqMPhPJttQ6aKsRd9wcNJuI5m/PClcDI3US2EQxnxkGyEBzmjzDVxlVthBsFOZoprDVTB6r2Z6+DkmukWamwPuqhMSlkp0XN6rJsYZCyy3TlOzpmMaZY3qchE2TwzpopbxT3qXqUb6MP3WrNxNi7B4C6zZ0JSYfKALrPRdRD62PT68DMpwDOeElm6Ol5GNPfqiHhR8gcLSpQpMsGJLEj24mXRZy7DksFpYOwyVWP50BllMnD4s4id/8Yxo6ySWafAO2jMrjrdL1m3RvoNhl/HjHvVoS+DLF/NftW4dPBXjs3gXlxUwGGzs+llkFa0mY6FU4iJtBnUBg12yiI4yQyAIojV9jumeFSwkbFZVvrh+HrMJ9djxeku40ALhwJGP8eMbrqsMZ5sbLZUlUHqPzNyAd5j5qCzZQTI2U2OFmHMbNTW8V3dvMIa3tqR2Qf3IqvhgM3Opmfz40h2ETZRm+lYJQBDZTIupkPGtgtOBCl9ivWuNfFhETs17744uWY9RQzgyarv14LOIEGkBf/QgZQ0rrJb1g57TrRZZiYI4xURu7LKscPJ0jA0s2cugs5jzHEMflafdgTS11m3zS3DBdoewbekD9/tlUZae48B+2+2PRtmjmW6hvaiJuCATc+D0lcG8KD7sAxexmiz+eCInaq8D2khdcEaPPzKKqyI+7IXFOja3rIp24vwebJaFzqTranZaRKM4tbVdOiAg5kdy+Q1BBwyaxmPFtAujC1qXiPEbzKyfeUSZd+xMxyZYWMW9skFeivAvZrNcCinew6OPYOXQXbjThXZtm4+1+RrR21NzKaXFVnaTKUs96ULXjKWq11AVIvPlLFFtjhlg4Q+uuClD6dxAdHkN8MMuKbuQX8e8iXQ7gsul4KFNpNKdn9MnhJdCQ4eMrF9uAeyJZAMflbmvvLe1hDsHgKau8zaJnPUl1lvXIId/C0rvgxamoMYStYGHJ0XREZZrAxiU90X/dfmp2ToSj61SEVnSha+L2WAvlRtH527aCb9quQzdovxsXPojMo+uEcyAmyZuq1lwYai5JkVWGeE6FmymSgBR/b9bR33bMbF2prbZqr0w9fpHpXfFWfiTAfq3tQGHGAqlBFlWihtzpmI/yIIUPv0FfAADx3bLsUpWMkg+Mkqf8+jc2TNQNTqFNA4TmQ3Mtk9i/YY2qItQL+R/S6IcsfAOpf9WXQ2zcDvEtbtjHjWM5DJ9B0zSoj3rpimDqW9ZyazTHszJOCoaTvV1ZGN+s+icxfNZBRkKYZqK5x4BSuZU4fgh2HQPmhzzPSV078QN2ZOAI1t4t7PBO3ulbaJXUImNqsdG7IGnoVrlMlEQYY4U0Y4BlynbMYx8xwcK7I/94yI21R+AYKNg/nBDHnYaiaW2lT1Tw+FBiTrLkqHsU9fe1b/YQPQXTLku+sQiGVMxPSoc01tNPrILtqNyzLX9zbX721sD07V3xIRd66YmwLu2Y8/5IF26KaphSZj2CLFkw0YzoITIJv0PpzsZCiyp5qzIBrNdrgYpJWxIz8LaddsqUm7btY1sbFNpJszmxMhbCYTeAw4CQ9d24biGinlZJAJyZTJjoGakeiZ5+DYcKj/zoj4gsrnX4btsXtUBQYx9KG0CWYGRHVjoIfU3jphZUYo1A2X24ea4WiCINMmh8DAJuspIohqvgrHjZa1TPpdO2ZGhHwMCLyy38VYz5fN0LXKYD1sweEleGtkgq9WMrws9sXPLrOAPin5HZ7EXK7H7HlIr2ZowOEh1aqZiTg/oMIp8SS+0BsmP9Evj9QSKKPwR4nf6b3xjxhSU/ygpNmQtrlsC3JjuxA/ZrQZNrBMme4YkEW0kWX4h8xfSpL9WdaP7PvbOrLgGe8SpfzJjalWAE3kJ0TEk0pmY8jBlw/RfUbaM6uoNf46SWdG1dfHziWRcVftjAftPUoqfTj9EVZm05kXwcdA8OJ39yEYsnBk+v07PFgM0TIRPSHPy/rexIoRrA0J2MZgrt87BJuYAL9PfO2eGtM1c80od2Y8GxyY9tF9nSbbluxajtmOu2bcs5n1UPboGAMOe7T7heEk7Z9gw6F1aMDq8PKAiPjxOW6afQIOm6EgwpdwEX6HTfbJleIU2o+MToLzHE3JGAhaZG4+NfEQiCwFJi+u+MUerusn/7423eyJaY1Q6j88Ip6dzJSNicVrLa3GRs27DzL25sp1gqlM5nHL8O7JLMied6e9sbAWOYn3ndgdVLTWH7u/jnvVPZvBM+BZWAtdh6U9ovZ59L0oCdr/dEX6Gb6nzH54EQ7nT4iIRyZbkUdnn4DDDWBT7As4YJO12WbKFWB7LUjJnEQ9tFl73AxqWxahvtOizI6gqCbg0E6bGcTVWc3W3qhrwmL/tDW94ZlwqnM/Zrq9LEyenbF0CWvl6skWVc+ZAWJj4WcpgfVlL1yjTBZ16yh9ZZoCoElhTRkOe9cdI+K2C7mI9pLvL62zs32PQzUc6LwrMkIpmywtR5as14X3YIJt5j1kIYjNnDw6QazFI0MX8WZ69Q00yk68bGwb93bGaA8W78zMoS3jEJWta+tMy3TbZRFwZMsq3mOmlLBl3KscqTN4BtYWSC/lwOh9PCMivmzuWTT7BBywKWYmwnYZi+zv4+YpLdpHl2UZ88LWZBdkLN6l700WuoxIhi7L0mhoizUtOINnJpMJ2TKes2zAobttTA2HACabxTX24dhFvtdMlgrhGdjH9uBYsX48MSLuOodI9DTZAOA8pHqz+gldHX0CU3Saj746KGhIasWofQhefi6pn7DAZzUZ7xOxS/X20elI2sPV6PitpCha3ZdAO1OK3Co2MQK7DITZY2ZHlVOyQm/ZqGMODt2jBmFm7ODpvTwDjTocyL8tIu42culwMPtoOGBTfE55cKQHz8s0uLl8eKKXviExJrJaNDMIDKYQEnWBTN9k2K7r5Kk9IhyfX1dLRjnP2/4gk/saq8EmRpD4zol3TPv04Mruqa3gOWOql3nOCOi0wWc8TrKc/Jl9hzmdB94rs8ExM7Rrofv8GRxss1m+xiUEaN9U5qSM0cE5CvsGHHh+0VFkTlWZGhxTrMwJxc9ijDXmgtEhiBHM9AUcEBwJki4aDU4xb3HJQISaTcs2jgOpfwtuJuCQqtdOnnXN3RJKFDdOfiCllIxWqxaGiHQcmY6Cm0TEd0x0aFo67tNrJ9+kA+BF62vj/3Gw/75y6DjYjJQsfVF4BjUiqld+FH2vviFk3fj3jDOpzpQpFgwIYrIun4IjD89FZJ1Jx/QUaWwHqfpsAMFI6eYzWHsvAf4Efc9ih8V4zO62Dpq2bFmFkP56S/jiDoxsuHu0z1umg+fTmKWvLeL7+eGI+Iyi11hcsIExAo4x0U6WabMF7Yg081Rk220FR30tvNnZK8pNBKONxkm6jrBsO9stktmQLcFp9VOS/htwoKgx7cvSCdkzKP18csK3Y2voWrxZ8kO5RjoRj7HslEG56ekR8ZmlBfe5ZRrxIllawEHw5dWHrAqDLn9ORY2hGD+O8xTn2mAFJJnvWtfPK6f6QI1V8+sVY6SJEW95ZOJRpdiPS15hQcFPTLSJ2Ri5OGaDGc6RBOXHgtL7rSv8N37z0APGRiQjM6iFblIrt/v364rzqJkqz0o2OszKGBqOMZHd6DPNgXrei8b8xWfQBTW3S4z87QKls2afaJu9bvK9iuRfk/y7jeOCLuB5xda4Dylr9+0zI3Yi5K0ju3H7oqXKQGchgJsKYlQ/PzMLiuPo50TEV1Y6Ma8V66ENMuNBInhzz5srtUYEtlqlh2Rn/BsSBKUSn9+e94oSfAnC+EVlg9rFsKSAoxvbniE7ZG1fuqFwjMguQpAky3GW4lyN9p0Sb8TNw7l1yM3Z2D7uC+lSY6gz5l60DOq595tIWL0kiLtNzMxAJ8VOf8qxAUTnfoc1IZPZNEqB0C+r01krggzBhpHqGWSZ6RLWuCa6z7SkPmrA++/GE+guod9yCPXnYrpNhrKkgIPjXEbw1Y2R15s9NdztBDd9AUfXjmc2yElxkwdMOSXjKaILofWaNy7CycagQhtUH+69O5UT4pSn+bkhPPzSiHjr5BtxMhS4TbmJdcHhFyZnhZiT4zMoqW45w6ns9bnJIAxKU2tdE90Dug1bx+EJMtH3oejaS/vQznaok4CghlYkszid1c7rJJpprYU23KwtcuM4cT8+pWJT0kH1FRVCyrUh0JfFyWo3oNY9RXfKaXSryHJkIaIUSE5R918CBtYpG2WdmQmk3eummzY2wlICDjXY7Nj2l0bEyw/4/Qtu1OH6OMuwTBCSmRVgI5nKU6SxLdwnSm9ZlBpsykt51sdEuVJAlZlPBHXw7zmQRTYNmA0zO6tFt9tXJ7O8a8O9R6dyq4o37qDnENbYEEtZhFiEm5+SwWKbbQ8cA8GNIKcPKeyPitgFT3BSYeeese59VcROyNZo9EHr8+iKLIeN7B5FT7AlTHO+T7Jk0WE6sbLUoVDKos3IYoKsz5TR6KwJh0nBVDYwtL5/14HX+cYBWErAoYujTycB9U0nvEyJYyzc/NkTpRNXN3SuxlNEx82YY7Ib2+YFRUyXRRr7vhsaic659+srXEWh3fxxE7fSn0aXwWNKR0EW5aG7Jw8qa0AHn3tPN06WHyr6jcbGWELA0Y1t7zIDF5HNNoyJ4Ea7aiarImgyQRbXSPbX66smBOxzYW00OijWH1qRrgct0f2TU5iXjMnTxmzfoaJM5BnTLTD2oMcMRI9O69lhjDKlnx8RX3IiW7pWWPE/oNJN9dXl3m7OohtkCQEHdTknzgx8LsYcJ51FGpYIrI+TJl9a4jKeIjIbv9T3gxuNU7hnHlvZ8spO2gagHLFGPF824q+qSM/DgcGI7inmLvXhdz4+4kyPnvNQBpPluMuKgw5WAA+pFPT6rgRn7AgaG2QJAYdBU2qXfVArK6dkTwpjIsg5y9TrLARPHjbD2jKKc9oNGo5GowaiRIO/svcl3I86IR60QutzWiiZDaWUK1Z8UcYFfEvEzgJ6LghHv7XysKSr414R8cURu6zOmpDplYH7xMo3rXQtEzXHGt84AHMHHN3Ydg9XH/qZeWLMgQeAajrToqUrha10ZhKico2fm5mi22icRvqZyLBmplAXdBCersVS+y0j4t4Dgg1B2cPKMzY3PCUEiDWbqVkrgo5vSGZLlwAvJbqV2mBDptc1blq2DTN3wCHQ0MmRQZptTpvmrLupRUIqlJlPH3w3ak6ojcZpzFRQJql1IbxpRHx3xO7PudeBi6CFemQxxspMkT4J8aFNfsqZS1lotJz6mY7VIJvDv+IRyUzwXHQTYN1TN6p8Ew5yHHFlsBsbZu6FRilFSaWPJQgr9fD/St8bLYu3RTIjgjVCmMNoozGUThDJ86G2e8t49CdExNdExFsNfQMT4fnhIfLUMlE1M3vjJFpSDbeaQ/N1Hvx8vCeOojVwhL5tRHxvyZ5m1pZDQof3taUL6FqVv9g9+6SSFanJ/jRWyNwBB2FlZqGrmdw6FU6QuknGfCjULKec6dA4Dnhz3DMifmzAx2VYJ5XtZPoxSRv+qRGwP7CIYjPjDk7zx8UQbIm22AToRK8OMLWwDxAgfvtCsh0Cn5sUMzVln8xafprnl7JRpguwsXLmDDgIoRjCZISVL6nsZZ+KXxxRfKa18dCeIo3tYpO920CFv+yB0opsAkGpzEdtRmEMtFFyDv2BiN0cEnNSapFFYDJFM7FU+KjIKg3Jvuh806njO/Jnjb/FWMi4CH6UiDi3KqEMuV+sp18+MPhqrJA5h7cxI+o8Ky6i88FYQl+2GQyCnzHaCrXZ1qZWG42LcKK3UWstHJIZcEL174mejbYXgLjfpxQ126g6obWyAbH10IOQMd5S+9w9a8tLh0T7p+9W543ulbcY8MtNXKXdMX31yRHxg+VQNmYG9jTerzX704pN+T7BjvtKB46ycuNImDPgYGXeuXJehFHPSxnbLuiRlagZFnUeL4zYtew1GmNCXG2EPZGhTMUQtHXfNSI+vcyzIL4018L05EynVh+CDKUczryepRtH7AbNZbKd50GALdjgeTHlpjsWhKycT2GM+VUG/GDfowDAzCbXvHOgJXDXBjzG9yATfdWIuGHEbsCcMriuoX1gBXDnpCausSHmCjj8XnNHMmPbuQPO4RB4Fk5NukqcpIYsEB30INphx1gQGo3TCGaNppfyzk4rPgtiQO2Nt4jYlWxeXEzqCDJl+5QvlAYvcsn1rNu0PC9KJkTi1y+vq0VUd56chVZKJQrp/SV0pGTpgg7fH6+QTGfbWcgIEeB7GZL2iojduAQvWS/XzpplSOR5a45gz3qsK0amS9ZJlswUb0GNIHRo5ukkAlfBbJsddYTMFXCcNVn1PNygshxLQQrwZXsu5Np7Mx0vjcZQ3F+3L+2GTqb7ZA+cpJ1yvXSOCDIEG3xAiB+Jum1oSi82T+sKQSG9gaBFJtPLc0+Xsc97OY1nkQhTu+kcTqL7IujggipDQwx69T1/oLKHQMHrjkWU7vq4Vl6yqoTqMlWCD0GGfyMgFPB010rQkRk8mcW1eU65VgKixhEyV8AhBSiF2ocShkzAkuqxgh9Zjn1Ojk6KTh2NxpRouZbpMC3W5jPWBuIU7JUZuDgV1gQeJDIbaw/ebcbPLqZXyiuyv2MgIyGQ8NL5MxcCVLoin63GpK6xMcZIkdXid7L9zpj4SNsuTVhpcdjHHdS/115ba9TUaAyBrbZNWQfLHwz5AQtECyUH0dttINg4iRIIEejDy2TsLWAN101jNkwLNo6cOQKOmrHt2qaWeJNSWHuQhiClqcbeaBwKmUJW5kSg0tprnkzsAEJwqPV1iJfF0lFu5SxKBPrSpb/ZC3Cg0rqro8WQQfqRxpEzR8BxzWR6z6Iok7BEEZggaOiEVwtmZvJsozE27lmiQkPQaB/WBM8KWY3bFHHoljcwn02rK72MbAd9x5pwb8moudfa5NfG/zFHwPFhyUFEBE5SjEtEEDQ0GDIqW02z0ZgD4k6bmO4Tbp6esyXjWXlWmXLLJOqYBIcvL8ZYsgQ0HktfN2Sc7l88OsywaS7KjctwaNEo0Vp2bDthpQmxS0UwZLFmYJaFBfVSPEUax41TqLKE+Ry0ELcqrY9LwbPC84avBn+J1yzljR0YpQmfX3mZo+cdyhqambB9KAjglep02/AAae3+jTM5dMChMyXjgNgJK8cwGZoKJkgerpqAQ9fAEuc7NI4TmTodHjRJRorfunhuKHteYYavROeJzcsGyy30F4440DgNoaxMj3k5H1oyPmbf8DYZs804i7WZRYDMi/flv5dY/m4siEMHHFpJ9eL3ocd/6cJKdVbdJmygsw88T5G11WMb28dGwczL61ERu7Kn2SpcJbW+Thl8OFzQRDGCel6ZgaJssmZh65QIPAw80xLMs0PWwwA15lxvM5I513kIMhy02AL8SPlz6SW5xoI4ZMDBCMiwtsyQHxMV11Cr9eAJjpgb9cEUie5jjeZEjePBBiK7YJYKd0n26A4KNjQZSve60ugQ/ZcMhk2LjkS5lIBaqYCwUNfX0jUKS0JAJlvqJTvFGZSDK2dQI+JlXnUEChazB6KTWKc6gzcid9lch0DZMFqNls1oVHPIgENmIzOsDdT0axhX/MqIXZkkE3B4SJfmKdJonIcN5VXlJWV+5RKAsM9mIuVP2Q+DDG1sVyoOozY4m6E6vnZcwkFzPQQYNi7PCzGkk7LOk1bv3x+BgbXFi+bFrBOusDIgrpVgRABineL0KmB08OMySiPietHIMDVkE++6O/DR+fjT2kVT02jsxf8C8u19jAxB6+QAAAAASUVORK5CYII=" alt="WHOOP">
-        </div>
-        <p class="lede">Join us for an intimate afternoon bringing together 25 women for an open conversation challenging the expectations of high-performance culture.</p>
+        <p class="lede">You are invited to join us for an intimate afternoon bringing together 25 women for an open conversation challenging the expectations of high-performance culture.</p>
         <p class="body">Exploring the relationship between health, performance, and longevity, we’ll look beyond traditional measures of success to understand what it really means to perform at your best, in training and in everyday life.</p>
       </div>
     </section>
 
     <section class="block">
       <div class="inner">
+        <h2 class="eyebrow">Event schedule</h2>
+        <ol class="sched">
+          <li><div class="t din">2:30<small>PM</small></div><div class="w">Guest arrivals<span>Welcome drink and introductions</span></div></li>
+          <li><div class="t din">3:00<small>PM</small></div><div class="w">The conversation &amp; panel<span>An open discussion on health, performance, and longevity, moderated by Jade Ashley Palmer</span></div></li>
+          <li><div class="t din">3:45<small>PM</small></div><div class="w">Brunch<span>Healthy bites and private blood testing appointments</span></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="inner">
         <h2 class="eyebrow">The conversation</h2>
-        <ul class="people">
-          <li>
-            <p class="role-tag eyebrow">Moderated by</p>
-            <p class="name">Jade Ashley Palmer</p>
-            <p class="desc">WHOOP Creator and Co-Founder, UnCommon Run Club</p>
-          </li>
-          <li class="gap">
-            <p class="role-tag eyebrow">With</p>
-            <p class="name">Dr Rhea Kotecha</p>
-            <p class="desc">MD, Longevity Medicine</p>
+        <ul class="panel">
+          <li class="mod">
+            <span class="tag eyebrow">Moderator</span>
+            <span class="nm">Jade Ashley Palmer</span>
+            <span class="rl">WHOOP Creator and Co-Founder, UnCommon Run Club</span>
           </li>
           <li>
-            <p class="name">Riley Rehl</p>
-            <p class="desc">Global WHOOP Creator</p>
+            <span class="tag eyebrow">Panel</span>
+            <span class="nm">Dr Rhea Kotecha</span>
+            <span class="rl">MD, Longevity Medicine</span>
           </li>
           <li>
-            <p class="name">Karen Wazen</p>
-            <p class="desc">Founder, Mother, and Global WHOOP Ambassador</p>
+            <span class="tag eyebrow">Panel</span>
+            <span class="nm">Riley Rehl</span>
+            <span class="rl">Global WHOOP Creator</span>
+          </li>
+          <li class="wide">
+            <span class="tag eyebrow">Panel</span>
+            <span class="nm">Karen Wazen</span>
+            <span class="rl">Founder, Mother, and Global WHOOP Ambassador</span>
           </li>
         </ul>
       </div>
@@ -375,37 +456,18 @@ footer a{color:var(--white);text-decoration:none;border-bottom:1px solid #555}
 
     <section class="block">
       <div class="inner">
-        <h2 class="eyebrow">Event schedule</h2>
-        <p class="h">Sunday, 15 November 2026</p>
-        <ol class="sched">
-          <li><div class="t din">2:30<small>PM</small></div><div class="w">Guest arrivals<span>Welcome drink and introductions</span></div></li>
-          <li><div class="t din">3:00<small>PM</small></div><div class="w">The conversation &amp; panel<span>An open discussion on health, performance, and longevity, moderated by Jade Ashley Palmer</span></div></li>
-          <li><div class="t din">3:45<small>PM</small></div><div class="w">Brunch<span>Healthy bites and private blood testing appointments</span></div></li>
-        </ol>
-      </div>
-    </section>
-
-    <section class="block">
-      <div class="inner">
         <h2 class="eyebrow">The brunch</h2>
         <p class="h">Healthy bites at Thirtyfour</p>
         <p class="body">Following the conversation, brunch is served at Thirtyfour: healthy bites and shared plates, fresh juices, and coffee. Time to continue the conversation and connect, while guests step away for their private blood test.</p>
       </div>
     </section>
 
-    <section class="block place test">
+    <section class="block venue">
       <div class="inner">
-        <div class="partner">
-          <h2 class="eyebrow"><b>The venue</b>Thirtyfour at Clubist</h2>
+        <a class="partner venue-strip" href="https://share.google/z2aP3OrRTOpoTPeqL" target="_blank" rel="noopener">
+          <h2 class="eyebrow"><b>The venue</b>Thirtyfour at Clubist<span class="vmeta">Free valet <i>/</i> Maps ↗</span></h2>
           <svg class="venue-logo" viewBox="0 0 1013 136" role="img" aria-label="Clubist"><use href="#clubist-logo"/></svg>
-        </div>
-        <p class="h">A new standard of movement, community and design</p>
-        <p class="body">The Long Game is hosted at Thirtyfour, part of the Clubist wellness ecosystem in Dubai Marina. Clubist is a wellness club home to three studios: The Mind &amp; Body Room, an infrared heated studio warmed to 32°C, The Megaformer Room, with its Lagree Megaformers, and The Dark Room, for strength and conditioning.</p>
-        <div class="addr">
-          <p>Marina Quays, King Salman Bin Abdulaziz Al Saud Street, Dubai Marina, UAE</p>
-          <a class="pill" href="https://share.google/z2aP3OrRTOpoTPeqL" target="_blank" rel="noopener">Open in Maps ↗</a>
-        </div>
-        <p class="valet"><span class="eyebrow">Valet</span>Complimentary valet parking for all guests</p>
+        </a>
       </div>
     </section>
 
@@ -559,7 +621,7 @@ footer a{color:var(--white);text-decoration:none;border-bottom:1px solid #555}
             </div>
             <p class="eyebrow tk-ey">Your place is confirmed</p>
             <h3 id="doneTitle">Thank you.</h3>
-            <p class="tk-lede">We look forward to welcoming you to The Long Game. A confirmation is on its way to <span id="doneEmail"></span>.</p>
+            <p class="tk-lede">We look forward to welcoming you on Sunday, 15 November. A confirmation is on its way to <span id="doneEmail"></span>.</p>
 
             <ul class="tk-facts">
               <li><b class="eyebrow">Date</b><span>Sunday, 15 November 2026</span></li>
@@ -585,7 +647,7 @@ footer a{color:var(--white);text-decoration:none;border-bottom:1px solid #555}
             <p class="tk-photo">A photographer will be with us on the day.</p>
 
             <div class="tk-actions">
-              <a class="pill solid" id="gcal" target="_blank" rel="noopener" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=The%20Long%20Game%20%7C%20WHOOP%20x%20Clubist%20x%20Unilabs&amp;dates=20261115T103000Z/20261115T140000Z&amp;location=Thirtyfour%20at%20Clubist%2C%20Marina%20Quays%2C%20Dubai%20Marina&amp;details=Guest%20arrivals%20from%202%3A30%20PM.%20Complimentary%20valet%20parking.%20Please%20bring%20your%20original%20Emirates%20ID%20or%20passport%20for%20your%20blood%20test.">Add to Google Calendar</a>
+              <a class="pill solid" id="gcal" target="_blank" rel="noopener" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Rewriting%20the%20rules%20of%20performance%20with%20WHOOP&amp;dates=20261115T103000Z/20261115T140000Z&amp;location=Thirtyfour%20at%20Clubist%2C%20Marina%20Quays%2C%20Dubai%20Marina&amp;details=Guest%20arrivals%20from%202%3A30%20PM.%20Complimentary%20valet%20parking.%20Please%20bring%20your%20original%20Emirates%20ID%20or%20passport%20for%20your%20blood%20test.">Add to Google Calendar</a>
               <button type="button" class="pill" id="ics">Apple or Outlook calendar</button>
             </div>
             <p class="tk-contact">On the day: <a href="tel:+971552141403">055 214 1403</a> · <a href="https://wa.me/message/KM3AQS5GMH6GG1" target="_blank" rel="noopener">WhatsApp</a></p>
@@ -851,16 +913,16 @@ const ENDPOINT = "https://script.google.com/macros/s/AKfycbyRligr_xJLAYSRsybZedD
   /* ---- calendar file for Apple and Outlook ---- */
   $('#ics').addEventListener('click', () => {
     const ics = [
-      'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Clubist//The Long Game//EN','BEGIN:VEVENT',
-      'UID:the-long-game-20261115@clubist.ae','DTSTAMP:20261103T000000Z',
+      'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Clubist//WHOOP event//EN','BEGIN:VEVENT',
+      'UID:whoop-event-20261115@clubist.ae','DTSTAMP:20261103T000000Z',
       'DTSTART:20261115T103000Z','DTEND:20261115T140000Z',
-      'SUMMARY:The Long Game | WHOOP x Clubist x Unilabs',
+      'SUMMARY:Rewriting the rules of performance with WHOOP',
       'LOCATION:Thirtyfour at Clubist\\, Marina Quays\\, Dubai Marina',
       'DESCRIPTION:Guest arrivals from 2:30 PM with a welcome drink. Complimentary valet parking. Please bring your original Emirates ID or passport for your blood test.',
       'END:VEVENT','END:VCALENDAR'
     ].join('\r\n');
     const url = URL.createObjectURL(new Blob([ics], { type:'text/calendar' }));
-    const a = document.createElement('a'); a.href = url; a.download = 'the-long-game.ics';
+    const a = document.createElement('a'); a.href = url; a.download = 'whoop-event.ics';
     document.body.appendChild(a); a.click(); a.remove();
     setTimeout(() => URL.revokeObjectURL(url), 4000);
   });
