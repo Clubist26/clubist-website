@@ -513,9 +513,8 @@ footer a{color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,25
 <a class="pill solid float" id="float" href="#rsvp">Confirm your place</a>
 
 <script>
-/* RSVPs are saved to the Clubist Invitations Google Sheet, with an email copy via FormSubmit */
-const SHEET = "https://script.google.com/macros/s/AKfycbxNXI3E1SxmIY8WMzoO4DZ398pbKzaZOKBmUjqFtyqY1zAPNuQu3Wbvft6g1qBK071k/exec";
-const MAIL = "https://formsubmit.co/ajax/charlie@clubist.ae";
+/* RSVPs are saved to the Skyline Shred RSVPs Google Sheet, which emails charlie@clubist.ae for each one */
+const SHEET = "https://script.google.com/macros/s/AKfycbxnRmfqBI-8gtCdp5GzNcWNGpwITu4ortN4bSR2vNADRYA6OvUjobBsTN6zq0abGnQZ/exec";
 const LIVE = /(^|\.)clubist\.ae$/.test(location.hostname);
 const KEY = "skylineshred-rsvp";
 
@@ -596,23 +595,12 @@ const KEY = "skylineshred-rsvp";
     };
     try {
       if (LIVE) {
-        const acct = d.account === 'Yes' ? 'Has Clubist account (details as on account)' : 'No Clubist account';
-        /* 1. the RSVP row: Clubist Invitations Google Sheet */
         const r = await fetch(SHEET, { method:'POST', body: new URLSearchParams({
-          'First name': d.firstName, 'Last name': d.lastName, 'WhatsApp number': d.mobile, 'email': d.email,
-          'Invited by': 'SKYLINE SHRED RSVP, Tue 10 Nov. ' + acct
+          'First name': d.firstName, 'Last name': d.lastName, 'Mobile': d.mobile, 'Email': d.email,
+          'Clubist account': d.account === 'Yes' ? 'Yes, details as on account' : 'No'
         }) });
         const res = await r.json().catch(() => ({}));
         if (!res.ok) throw new Error('send');
-        /* 2. an email copy, sent in the background */
-        try {
-          const fd = new FormData();
-          fd.append('_subject', 'Skyline Shred RSVP: ' + d.firstName + ' ' + d.lastName);
-          fd.append('_template', 'table'); fd.append('_captcha', 'false');
-          fd.append('First name', d.firstName); fd.append('Last name', d.lastName);
-          fd.append('Mobile', d.mobile); fd.append('Email', d.email); fd.append('Clubist account', acct);
-          fetch(MAIL, { method:'POST', mode:'no-cors', body: fd, keepalive:true }).catch(() => {});
-        } catch(_){}
       }
       try { gtag('event','rsvp_submit',{ event_name:'skyline_shred', has_account:d.account }); } catch(_){}
       try { localStorage.setItem(KEY, JSON.stringify({ firstName:d.firstName, lastName:d.lastName, preview:!LIVE })); } catch(_){}
