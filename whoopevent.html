@@ -412,6 +412,13 @@ section.block.venue{padding:40px 0 56px}
 .js .live li.on.now .w::before{background:var(--pink);border-color:var(--pink);box-shadow:0 0 0 6px rgba(240,122,174,.22);animation:pulse 2.2s ease-in-out infinite}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 4px rgba(240,122,174,.28)}50%{box-shadow:0 0 0 10px rgba(240,122,174,0)}}
 @media (prefers-reduced-motion:reduce){.js .live li .w::before{animation:none!important}}
+/* ===== while the RSVP is being sent ===== */
+.sending{margin-top:22px}
+.sending .sbar{display:block;height:3px;border-radius:3px;background:#E3E6E8;overflow:hidden;position:relative}
+.sending .sbar i{position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(90deg,#000,var(--pink));border-radius:3px;transition:width .8s ease}
+.sending p{font-size:15px;margin-top:14px;color:#000}
+.sending small{display:block;font-size:13px;color:#666;margin-top:4px}
+.nav .pill:disabled{opacity:.55}
 @media (min-width:600px){
   .lockup{--h:16px;--x:16px}
 }
@@ -689,6 +696,7 @@ section.block.venue{padding:40px 0 56px}
             <ul class="review" id="review"></ul>
             <p class="note" style="margin-top:20px;font-size:13px;line-height:1.5;color:var(--muted)">By confirming, you accept that a photographer will be present and you may appear in images from the event.</p>
             <div class="nav"><button type="button" class="back" data-back>Back</button><button type="button" class="pill dark" data-submit>Confirm my place</button></div>
+            <div class="sending" id="sending" hidden aria-live="polite"><span class="sbar"><i></i></span><p id="sendMsg">Securing your place…</p><small>This can take up to 10 seconds. Please keep this page open.</small></div>
           </div>
 
           <div class="formerr" id="formErr" role="alert"></div>
@@ -915,11 +923,11 @@ const ENDPOINT = "https://script.google.com/macros/s/AKfycbyRligr_xJLAYSRsybZedD
     if (isImg) {
       try {
         const bmp = await createImageBitmap(file);
-        const scale = Math.min(1, 2000 / Math.max(bmp.width, bmp.height));
+        const scale = Math.min(1, 1600 / Math.max(bmp.width, bmp.height));
         const c = document.createElement('canvas');
         c.width = Math.round(bmp.width * scale); c.height = Math.round(bmp.height * scale);
         c.getContext('2d').drawImage(bmp, 0, 0, c.width, c.height);
-        const blob = await new Promise(r => c.toBlob(r, 'image/jpeg', 0.85));
+        const blob = await new Promise(r => c.toBlob(r, 'image/jpeg', 0.8));
         if (blob) return { name: file.name.replace(/\.[^.]+$/, '') + '.jpg', type:'image/jpeg', data: await readAsBase64(blob), label: file.name };
       } catch (_) { /* fall through to raw upload */ }
     }
@@ -971,20 +979,30 @@ const ENDPOINT = "https://script.google.com/macros/s/AKfycbyRligr_xJLAYSRsybZedD
   async function submit(btn){
     if (sending) return;
     sending = true;
-    const label = btn.textContent; btn.disabled = true; btn.textContent = 'Sending…';
+    const label = btn.textContent; btn.disabled = true; btn.textContent = 'Confirming…';
     $('#formErr').classList.remove('show');
     const data = payload();
+    // honest progress while the sheet saves the ID, writes the row and sends the emails
+    const box = $('#sending'), bar = $('#sending .sbar i'), msg = $('#sendMsg');
+    const steps = [[0, 'Securing your place…', 18], [1600, 'Uploading your ID securely…', 46], [3800, 'Registering your blood test with Unilabs…', 72], [6200, 'Sending your confirmation…', 90]];
+    const timers = [];
+    if (box && ENDPOINT) {
+      box.hidden = false; bar.style.width = '0';
+      steps.forEach(([t, m, w]) => timers.push(setTimeout(() => { msg.textContent = m; bar.style.width = w + '%'; }, t)));
+    }
+    const stopProgress = () => { timers.forEach(clearTimeout); if (box) box.hidden = true; };
     try {
       let res = { ok:true, preview:true };
       if (ENDPOINT) {
         const r = await fetch(ENDPOINT, { method:'POST', body: JSON.stringify(data) });
         res = await r.json();
       }
-      if (res.ok) { finish(data, !!res.preview); try { gtag('event','rsvp_submit'); } catch(_){} return; }
+      if (res.ok) { if (bar) bar.style.width = '100%'; stopProgress(); finish(data, !!res.preview); try { gtag('event','rsvp_submit'); } catch(_){} return; }
       showFormErr(res.message || 'Something went wrong. Please try again, or message Charlie on WhatsApp.');
     } catch (err) {
       showFormErr('We couldn’t send your RSVP. Please check your connection and try again, or message Charlie on WhatsApp.');
     } finally {
+      stopProgress();
       sending = false; btn.disabled = false; btn.textContent = label;
     }
   }
