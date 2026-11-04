@@ -278,7 +278,7 @@ footer a{color:#fff}
   var MC = {
     host: 'https://clubist.us6.list-manage.com',
     u: '7448c7385ccf0af9206fe77fc',
-    id: '3d70f370c0',
+    id: 'becf111cb3',          /* Clubist Events audience */
     tag: ''                /* paste the numeric tag ID for "Events List" here once it exists in Mailchimp */
   };
   var BACKUP = 'https://formsubmit.co/ajax/charlie@clubist.ae';   /* every sign-up also arrives as an email; set to '' to switch off */
@@ -362,38 +362,25 @@ footer a{color:#fff}
     return ok;
   }
 
-  function jsonp(params, cb){
-    var name = 'mc_cb_' + Date.now() + '_' + Math.floor(Math.random()*1e5), s = document.createElement('script'), fin = false;
-    function end(r){ if (fin) return; fin = true; clearTimeout(t); try{ delete window[name]; }catch(e){ window[name] = undefined; } if (s.parentNode) s.parentNode.removeChild(s); cb(r || {}); }
-    var t = setTimeout(function(){ end({result:'timeout'}); }, 12000);
-    window[name] = function(r){ end(r); };
-    var q = Object.keys(params).map(function(k){ return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]); }).join('&');
-    s.src = MC.host + '/subscribe/post-json?u=' + MC.u + '&id=' + MC.id + '&c=' + name + '&' + q;
-    s.onerror = function(){ end({result:'neterror'}); };
-    document.head.appendChild(s);
-  }
-
+  /* Mailchimp's own embedded-form endpoint, posted through a hidden frame so the visitor never leaves the page */
   function toMailchimp(d, cb){
+    var name = 'mc_' + Date.now(), done = false;
+    var ifr = document.createElement('iframe');
+    ifr.name = name; ifr.title = 'mailchimp'; ifr.setAttribute('aria-hidden','true'); ifr.tabIndex = -1;
+    ifr.style.cssText = 'position:absolute;width:1px;height:1px;border:0;left:-9999px;top:0';
+    document.body.appendChild(ifr);
+    var f = document.createElement('form');
+    f.method = 'POST'; f.target = name; f.acceptCharset = 'UTF-8'; f.style.display = 'none';
+    f.action = MC.host + '/subscribe/post?u=' + MC.u + '&id=' + MC.id;
     var p = { EMAIL:d.email, FNAME:d.first, LNAME:d.last, PHONE:d.phone, ACCOUNT:d.account };
     p['b_' + MC.u + '_' + MC.id] = '';
     if (MC.tag) p.tags = MC.tag;
-    jsonp(p, function(r){
-      var msg = String(r.msg || '').toLowerCase();
-      /* if the audience's phone field rejects the format, sign them up without it (the number still reaches the backup email) */
-      if (r.result === 'error' && msg.indexOf('phone') > -1) {
-        delete p.PHONE;
-        return jsonp(p, function(r2){ cb(classify(r2)); });
-      }
-      cb(classify(r));
-    });
-  }
-  function classify(r){
-    var msg = String(r.msg || '').toLowerCase();
-    if (r.result === 'success') return msg.indexOf('confirm') > -1 ? 'confirm' : 'ok';
-    if (msg.indexOf('already') > -1) return 'already';
-    if (msg.indexOf('too many') > -1) return 'ok';
-    if (r.result === 'error' && (msg.indexOf('email') > -1 && (msg.indexOf('invalid') > -1 || msg.indexOf('valid') > -1 || msg.indexOf('domain') > -1))) return 'bademail';
-    return 'fail';
+    Object.keys(p).forEach(function(k){ var i = document.createElement('input'); i.type = 'hidden'; i.name = k; i.value = p[k]; f.appendChild(i); });
+    document.body.appendChild(f);
+    function end(){ if (done) return; done = true; cb('ok'); setTimeout(function(){ if (f.parentNode) f.parentNode.removeChild(f); }, 30000); }
+    ifr.addEventListener('load', end);
+    setTimeout(end, 6000);
+    f.submit();
   }
   function toBackup(d, cb){
     if (!BACKUP || !window.fetch) return cb(false);
