@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>7 Tabs Open · Questionnaire</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230b0b0b'/%3E%3Ctext x='32' y='45' font-family='Arial' font-weight='700' font-size='38' fill='%23fff' text-anchor='middle'%3E7%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0b0b0b; --grey:#8a8a8a; --mute:#b4b4b4; --line:#ececec; --soft:#f3f3f3;
+  --card:#ffffff; --red:#ff3b30;
+  --sans:"Inter Tight", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:var(--sans);color:var(--ink);background:#0d0d0d;-webkit-font-smoothing:antialiased;overflow:hidden}
+button{font:inherit;color:inherit;cursor:pointer;background:none;border:0}
+input,textarea{font:inherit;color:inherit}
+
+/* device frame */
+.device{position:relative;width:min(1180px,calc(100vw - 48px));height:min(920px,calc(100vh - 48px));margin:24px auto;border-radius:46px;border:10px solid #2b2b2b;box-shadow:0 0 0 1px #3a3a3a,0 40px 120px rgba(0,0,0,.6);overflow:hidden;
+  background:linear-gradient(100deg,#bdbdbd 0%,#dedede 28%,#f4f4f4 55%,#fafafa 100%);display:flex;flex-direction:column}
+.device:before{content:"";position:absolute;inset:0;background:radial-gradient(1200px 600px at 0% 60%,rgba(0,0,0,.12),transparent 60%);pointer-events:none}
+
+/* top bar */
+.top{position:relative;z-index:5;display:flex;align-items:center;gap:18px;padding:22px 30px 18px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-.02em;font-size:17px;white-space:nowrap}
+.mark{width:34px;height:34px;border-radius:10px;background:var(--ink);color:#fff;display:grid;place-items:center;font-weight:800;font-size:18px}
+.pill{flex:1;max-width:560px;margin-left:auto;height:52px;border-radius:999px;background:rgba(255,255,255,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 1px 0 rgba(255,255,255,.8) inset,0 6px 24px rgba(0,0,0,.06);display:flex;align-items:center;padding:0 10px 0 22px;gap:10px;min-width:0}
+.crumb{flex:1;font-family:var(--mono);font-size:13px;color:#5d5d5d;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.crumb b{color:var(--ink);font-weight:500}
+.pill svg{flex:none;width:34px;height:34px;padding:7px;color:#4a4a4a}
+.iconbtn{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;transition:background .2s}
+.iconbtn:hover{background:rgba(255,255,255,.6)}
+.iconbtn svg{width:26px;height:26px}
+.bell{position:relative}
+.bell svg{width:34px;height:34px}
+.badge{position:absolute;top:0;right:-2px;min-width:26px;height:26px;padding:0 7px;border-radius:999px;background:var(--red);color:#fff;font-weight:700;font-size:14px;display:grid;place-items:center;border:3px solid #f6f6f6;transition:transform .35s cubic-bezier(.3,1.6,.5,1),background .3s}
+.badge.pop{transform:scale(1.35)}
+.badge.zero{background:var(--ink)}
+.bell.ring svg{animation:ring .7s ease}
+@keyframes ring{0%,100%{transform:rotate(0)}20%{transform:rotate(14deg)}40%{transform:rotate(-12deg)}60%{transform:rotate(8deg)}80%{transform:rotate(-4deg)}}
+
+/* stage */
+.stage{position:relative;z-index:2;flex:1;min-height:0;display:flex;flex-direction:column;padding:6px 30px 30px}
+.tabs{display:flex;align-items:flex-end;gap:4px;padding:0 0 0 30px;overflow-x:auto;scrollbar-width:none;flex:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:none;position:relative;display:flex;align-items:center;gap:9px;height:56px;padding:0 22px;border-radius:24px 24px 0 0;background:rgba(255,255,255,.42);color:#3d3d3d;font-weight:600;font-size:16px;letter-spacing:-.01em;transition:background .25s,color .25s}
+.tab:hover{background:rgba(255,255,255,.7)}
+.tab .tn{font-family:var(--mono);font-size:12px;color:#8d8d8d;font-weight:400}
+.tab.on{background:var(--card);color:var(--ink);height:62px}
+.tab.on:after{content:"";position:absolute;left:22px;right:22px;bottom:10px;height:3px;border-radius:3px;background:var(--ink)}
+.tab .tk{width:18px;height:18px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center}
+.tab .tk svg{width:12px;height:12px}
+.tab .tg{width:15px;height:15px;color:#777}
+.tab.more{background:transparent;padding:0 16px}
+.tab.more svg{width:20px;height:20px}
+
+.card{position:relative;flex:1;min-height:0;background:var(--card);border-radius:30px;box-shadow:0 30px 80px rgba(0,0,0,.10),0 2px 6px rgba(0,0,0,.04);display:flex;flex-direction:column;overflow:hidden}
+.body{flex:1;min-height:0;overflow-y:auto;padding:44px 56px 30px;scrollbar-width:thin}
+.foot{flex:none;display:flex;align-items:center;gap:12px;padding:16px 28px 22px 56px;border-top:1px solid var(--line);background:#fff}
+.prog{flex:1;height:4px;border-radius:4px;background:var(--soft);overflow:hidden;margin-right:12px}
+.prog i{display:block;height:100%;background:var(--ink);border-radius:4px;transition:width .45s cubic-bezier(.2,.8,.2,1)}
+.btn{height:52px;padding:0 26px;border-radius:999px;font-weight:600;font-size:16px;display:inline-flex;align-items:center;gap:10px;transition:transform .15s,background .2s,opacity .2s;white-space:nowrap}
+.btn:active{transform:scale(.97)}
+.btn.dark{background:var(--ink);color:#fff}
+.btn.dark:hover{background:#262626}
+.btn.ghost{background:var(--soft)}
+.btn.ghost:hover{background:#e9e9e9}
+.btn.text{padding:0 14px;color:var(--grey)}
+.btn.text:hover{color:var(--ink)}
+.btn .kbd{font-family:var(--mono);font-size:12px;opacity:.55;font-weight:400}
+.btn[disabled]{opacity:.4;pointer-events:none}
+.back{width:52px;padding:0;justify-content:center}
+.back svg{width:20px;height:20px}
+
+.enter{animation:enter .5s cubic-bezier(.2,.8,.2,1) both}
+@keyframes enter{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* question */
+.meta em{font-style:normal}
+.meta{display:flex;justify-content:space-between;gap:16px;font-family:var(--mono);font-size:12.5px;color:var(--grey);margin-bottom:26px;text-transform:uppercase;letter-spacing:.04em}
+.q{font-size:clamp(28px,3.4vw,46px);font-weight:700;letter-spacing:-.035em;line-height:1.04;max-width:20ch;max-width:880px}
+.help{margin-top:14px;font-size:18px;color:var(--grey);max-width:680px;line-height:1.4}
+.ans{margin-top:34px;max-width:880px}
+.sub{margin:28px 0 12px;font-size:15px;font-weight:600;letter-spacing:-.01em}
+
+.field{width:100%;border:0;outline:0;background:var(--soft);border-radius:20px;padding:20px 22px;font-size:18px;line-height:1.45;transition:background .2s,box-shadow .2s}
+.field::placeholder{color:#a9a9a9}
+.field:focus{background:#fff;box-shadow:0 0 0 2px var(--ink)}
+textarea.field{min-height:150px;resize:vertical}
+textarea.field.small{min-height:96px}
+
+.opts{border:1px solid var(--line);border-radius:24px;overflow:hidden;background:#fff}
+.opts.two{display:grid;grid-template-columns:1fr 1fr}
+.opt{display:grid;grid-template-columns:46px 1fr auto;align-items:center;gap:16px;width:100%;padding:13px 20px;text-align:left;border-top:1px solid var(--line);transition:background .15s}
+.opts:not(.two) .opt:first-child{border-top:0}
+.opts.two .opt:nth-child(-n+2){border-top:0}
+.opts.two .opt:nth-child(even){border-left:1px solid var(--line)}
+.opts.two .opt:last-child:nth-child(odd),.rows.handles .row:last-child:nth-child(odd){grid-column:span 2}
+.opt:hover{background:#fafafa}
+.ico{width:46px;height:46px;border-radius:50%;background:#f0f0f0;display:grid;place-items:center;color:var(--ink);transition:background .2s,color .2s,transform .2s}
+.ico svg{width:17px;height:17px}
+.opt.on .ico{background:var(--ink);color:#fff;transform:scale(1.04)}
+.opt .lb{font-weight:600;font-size:18px;letter-spacing:-.015em}
+.opt .k{font-family:var(--mono);font-size:13px;color:var(--mute)}
+.opt.on .k{color:var(--ink)}
+
+.scale{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.sc{height:84px;border-radius:22px;background:var(--soft);font-size:30px;font-weight:700;letter-spacing:-.03em;transition:background .2s,color .2s,transform .15s}
+.sc:hover{background:#e9e9e9}
+.sc.on{background:var(--ink);color:#fff}
+.scl{display:flex;justify-content:space-between;margin-top:10px;font-family:var(--mono);font-size:12.5px;color:var(--grey)}
+
+.rows{border:1px solid var(--line);border-radius:24px;overflow:hidden}
+.row{display:grid;grid-template-columns:46px 150px 1fr;align-items:center;gap:16px;padding:10px 18px;border-top:1px solid var(--line)}
+.row:first-child{border-top:0}
+.row label{font-weight:600;font-size:16px}
+.row .ico{font-family:var(--mono);font-size:12px;font-weight:500}
+.row input{width:100%;border:0;outline:0;background:transparent;font-size:17px;padding:12px 0}
+.row input::placeholder{color:#b8b8b8}
+.row:focus-within{background:#fafafa}
+.rows.handles{display:grid;grid-template-columns:1fr 1fr}
+.rows.handles .row{grid-template-columns:46px 1fr;gap:14px}
+.rows.handles .row:nth-child(-n+2){border-top:0}
+.rows.handles .row:nth-child(even){border-left:1px solid var(--line)}
+.hwrap{display:flex;flex-direction:column}
+.hwrap small{font-size:12px;color:var(--grey);font-family:var(--mono);text-transform:uppercase;letter-spacing:.04em;margin-top:2px}
+.hwrap input{padding:2px 0 4px}
+.row.seven{grid-template-columns:46px 1fr}
+.row.people{grid-template-columns:46px 170px 1fr}
+.row.people input.nm{font-weight:600}
+
+/* intro screens */
+.intro{display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:start}
+.big{font-size:clamp(110px,15vw,210px);font-weight:800;letter-spacing:-.07em;line-height:.8;margin-left:-6px}
+.big.icon{display:flex;align-items:center;height:168px}
+.big.icon svg{width:120px;height:120px}
+.ititle{font-size:clamp(34px,4vw,56px);font-weight:700;letter-spacing:-.04em;line-height:1;margin-top:26px}
+.iline{font-size:21px;color:#555;margin-top:16px;line-height:1.35;max-width:30ch}
+.ifacts{display:flex;gap:10px;margin-top:26px;flex-wrap:wrap}
+.chip{font-family:var(--mono);font-size:12.5px;padding:9px 14px;border-radius:999px;background:var(--soft);color:#555}
+.peek{border:1px solid var(--line);border-radius:26px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.06);background:#fff}
+.peek-h{display:flex;gap:6px;padding:12px 12px 0;background:#f6f6f6}
+.peek-h span{padding:12px 18px;border-radius:16px 16px 0 0;font-weight:600;font-size:14px;color:#666}
+.peek-h span.on{background:#fff;color:var(--ink)}
+.prow{display:grid;grid-template-columns:44px 1fr auto;gap:14px;align-items:center;padding:16px 20px;border-top:1px solid var(--line)}
+.prow:first-of-type{border-top:0}
+.prow .t{font-weight:600;font-size:15.5px;line-height:1.25;letter-spacing:-.01em}
+.prow .s{font-size:13.5px;color:var(--grey);margin-top:3px}
+.prow .m{font-family:var(--mono);font-size:12.5px;color:var(--mute)}
+.prow .ico{width:44px;height:44px}
+
+/* cover */
+.cover{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;min-height:100%}
+.kicker{font-family:var(--mono);font-size:12.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--grey)}
+.headline{font-size:clamp(44px,5.2vw,76px);font-weight:800;letter-spacing:-.055em;line-height:.92;margin-top:22px}
+.headline span{color:#c2c2c2}
+.lede{font-size:19px;line-height:1.45;color:#4d4d4d;margin-top:24px;max-width:46ch}
+.promises{margin-top:28px;border:1px solid var(--line);border-radius:24px;overflow:hidden;max-width:520px}
+.ctas{display:flex;gap:10px;margin-top:28px;flex-wrap:wrap}
+.visual{position:relative;height:470px}
+.gtab{position:absolute;width:330px;background:#fff;border-radius:24px;box-shadow:0 24px 60px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.05);overflow:hidden;animation:float 7s ease-in-out infinite}
+.gtab .gh{display:flex;align-items:center;gap:10px;padding:16px 18px;border-bottom:1px solid var(--line)}
+.gtab .gh b{font-family:var(--mono);font-size:12px;color:var(--grey);font-weight:400}
+.gtab .gh span{font-weight:700;font-size:15px;letter-spacing:-.01em}
+.gtab .gh i{margin-left:auto;font-style:normal;color:#c4c4c4;font-size:18px;line-height:1}
+.gtab .gb{padding:16px 18px;display:grid;gap:10px}
+.gtab .gb u{display:block;height:9px;border-radius:9px;background:#efefef;text-decoration:none}
+.bigbell{position:absolute;right:6px;top:-6px;width:118px;height:118px;border-radius:34px;background:#fff;box-shadow:0 24px 60px rgba(0,0,0,.14);display:grid;place-items:center;z-index:20;animation:float 6s ease-in-out infinite reverse}
+.bigbell svg{width:60px;height:60px}
+.bigbell .badge{top:10px;right:8px;min-width:38px;height:38px;font-size:19px;border-width:4px;border-color:#fff}
+@keyframes float{0%,100%{transform:translateY(0) rotate(var(--r,0deg))}50%{transform:translateY(-10px) rotate(var(--r,0deg))}}
+
+/* review + done */
+.endgrid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.status{margin-top:16px;font-size:15px;color:var(--grey);min-height:22px}
+.status.err{color:var(--red)}
+.fallback{margin-top:18px;padding:18px 20px;border-radius:20px;background:var(--soft);font-size:15px;line-height:1.45;display:none}
+.fallback.show{display:block}
+.fallback .ctas{margin-top:14px}
+
+/* dropdown panel */
+.panel{position:absolute;z-index:30;top:84px;right:24px;width:min(460px,calc(100% - 32px));background:#fff;border-radius:28px;box-shadow:0 30px 90px rgba(0,0,0,.22),0 2px 8px rgba(0,0,0,.06);overflow:hidden;transform-origin:top right;transform:scale(.96) translateY(-8px);opacity:0;pointer-events:none;transition:transform .25s cubic-bezier(.2,.8,.2,1),opacity .2s}
+.panel.open{transform:none;opacity:1;pointer-events:auto}
+.panel .ph{display:flex;gap:6px;padding:12px 12px 0;background:#f4f4f4}
+.panel .ph button{padding:13px 20px;border-radius:18px 18px 0 0;font-weight:600;font-size:15px;color:#666;position:relative}
+.panel .ph button.on{background:#fff;color:var(--ink)}
+.panel .ph button.on:after{content:"";position:absolute;left:20px;right:20px;bottom:6px;height:3px;border-radius:3px;background:var(--ink)}
+.panel .list{max-height:min(520px,60vh);overflow-y:auto}
+.panel .prow{width:100%;text-align:left;cursor:pointer}
+.panel .prow:hover{background:#fafafa}
+.scrim{position:absolute;inset:0;z-index:25;display:none}
+.scrim.open{display:block}
+
+/* toast */
+.toast{position:absolute;z-index:40;top:22px;left:50%;width:min(420px,calc(100% - 32px));transform:translate(-50%,calc(-100% - 80px));visibility:hidden;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:24px;box-shadow:0 24px 70px rgba(0,0,0,.2);display:grid;grid-template-columns:46px 1fr auto;gap:14px;align-items:center;padding:14px 18px;transition:transform .5s cubic-bezier(.2,1.2,.3,1)}
+.toast.show{transform:translate(-50%,0);visibility:visible}
+.toast .ico{background:var(--ink);color:#fff}
+.toast .t{font-weight:700;font-size:16px;letter-spacing:-.01em}
+.toast .s{font-size:14px;color:var(--grey);margin-top:2px}
+.toast .m{font-family:var(--mono);font-size:12px;color:var(--mute)}
+
+@media (max-width:980px){
+  .intro,.cover,.endgrid{grid-template-columns:1fr}
+  .visual{height:300px;transform:scale(.72);transform-origin:top left;margin-bottom:-90px}
+  .intro .peek{display:none}
+}
+@media (max-width:760px){
+  html,body{height:100%;overflow:hidden;background:#f2f2f2}
+  .device{width:100%;height:100vh;height:100dvh;margin:0;border:0;border-radius:0;box-shadow:none;background:linear-gradient(160deg,#d6d6d6 0%,#ececec 35%,#f7f7f7 100%)}
+  .device:before{display:none}
+  .top{padding:calc(10px + env(safe-area-inset-top)) 14px 8px;gap:10px}
+  .brand .wm{display:none}
+  .mark{width:36px;height:36px;border-radius:11px}
+  .pill{height:40px;padding:0 14px;margin-left:0}
+  .crumb{font-size:11px}
+  .pill svg,#menuBtn{display:none}
+  .iconbtn{width:40px;height:40px}
+  .bell svg{width:28px;height:28px}
+  .badge{min-width:22px;height:22px;font-size:12px;border-width:2px;top:-1px;right:-3px}
+  .stage{padding:2px 8px calc(8px + env(safe-area-inset-bottom))}
+  .tabs{padding-left:16px;gap:3px;scroll-padding:0 40px}
+  .tab{height:42px;padding:0 14px;font-size:13.5px;border-radius:16px 16px 0 0;gap:7px}
+  .tab .tn{font-size:10.5px}
+  .tab.on{height:46px}
+  .tab.on:after{left:14px;right:14px;bottom:7px;height:2.5px}
+  .tab.more{display:none}
+  .card{border-radius:22px}
+  .body{padding:24px 20px 20px;-webkit-overflow-scrolling:touch}
+  .foot{padding:10px 12px 12px 16px;gap:8px}
+  .prog{margin-right:4px}
+  .btn{height:50px;padding:0 22px;font-size:15.5px}
+  .btn .kbd,.foot .chip{display:none}
+  .btn.text{padding:0 10px}
+  .back{width:50px;padding:0}
+  .meta{font-size:11px;margin-bottom:16px}
+  .meta em{display:none}
+  .q{font-size:clamp(25px,7.4vw,30px);line-height:1.08;letter-spacing:-.03em}
+  .help{font-size:15.5px;margin-top:10px}
+  .ans{margin-top:22px}
+  .sub{margin:22px 0 10px}
+  .field{font-size:16.5px;padding:16px 18px;border-radius:18px}
+  textarea.field{min-height:140px;resize:none}
+  textarea.field.small{min-height:88px}
+  .opts.two,.rows.handles{grid-template-columns:1fr}
+  .opts.two .opt:nth-child(2),.rows.handles .row:nth-child(2){border-top:1px solid var(--line)}
+  .opts.two .opt:nth-child(even),.rows.handles .row:nth-child(even){border-left:0}
+  .opts.two .opt:last-child:nth-child(odd),.rows.handles .row:last-child:nth-child(odd){grid-column:auto}
+  .opts,.rows{border-radius:20px}
+  .opt{padding:9px 14px;gap:12px;grid-template-columns:38px 1fr;min-height:58px}
+  .opt .k{display:none}
+  .ico{width:38px;height:38px}
+  .ico svg{width:15px;height:15px}
+  .opt .lb{font-size:16px}
+  .row,.rows.handles .row,.row.seven{grid-template-columns:38px 1fr;gap:12px;padding:8px 14px}
+  .row label{display:none}
+  .row input{font-size:16.5px;padding:10px 0}
+  .hwrap input{padding:2px 0 4px}
+  .row.people{grid-template-columns:38px 1fr;row-gap:0;padding:10px 14px}
+  .row.people .ico{grid-row:span 2;align-self:start;margin-top:4px}
+  .row.people input.nm{padding:6px 0 2px}
+  .row.people input.tx{grid-column:2;padding:2px 0 8px;font-size:15.5px}
+  .scale{gap:6px}
+  .sc{height:60px;font-size:22px;border-radius:16px}
+  .intro,.cover,.endgrid{gap:22px}
+  .cover{min-height:0;align-content:start}
+  .kicker{font-size:11px}
+  .headline{font-size:clamp(38px,11.5vw,46px);margin-top:14px;line-height:.95}
+  .lede{font-size:16px;margin-top:16px}
+  .promises{margin-top:20px;border-radius:20px}
+  .promises .prow{padding:12px 14px;grid-template-columns:38px 1fr;gap:12px}
+  .promises .prow .m{display:none}
+  .prow .t{font-size:15px}.prow .s{font-size:13px}
+  .visual{display:none}
+  .big{font-size:clamp(96px,30vw,128px);margin-left:-4px}
+  .big.icon{height:100px}.big.icon svg{width:80px;height:80px}
+  .ititle{font-size:clamp(30px,9vw,38px);margin-top:18px}
+  .iline{font-size:17px}
+  .ifacts{margin-top:18px}
+  .chip{font-size:11.5px;padding:8px 12px}
+  .peek{display:none}
+  .endgrid .peek{display:block;border-radius:20px;box-shadow:none}
+  .endgrid .peek .prow{padding:12px 14px;grid-template-columns:38px 1fr auto;gap:12px}
+  .ctas .btn{flex:1;justify-content:center}
+  .panel{top:auto;bottom:0;right:0;left:0;width:100%;border-radius:28px 28px 0 0;transform:translateY(105%);opacity:1;padding-bottom:env(safe-area-inset-bottom)}
+  .panel.open{transform:none}
+  .panel .list{max-height:62vh}
+  .scrim.open{background:rgba(0,0,0,.28)}
+  .toast{top:calc(10px + env(safe-area-inset-top));border-radius:20px;padding:12px 14px;grid-template-columns:40px 1fr auto}
+  .toast .ico{width:40px;height:40px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="device" id="device">
+  <header class="top">
+    <div class="brand"><div class="mark">7</div><span class="wm">tabs open</span></div>
+    <div class="pill"><div class="crumb" id="crumb"></div>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L20 20"/></svg>
+    </div>
+    <button class="iconbtn" id="menuBtn" aria-label="All tabs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 7h14M5 12h14M5 17h14"/></svg></button>
+    <button class="iconbtn bell" id="bellBtn" aria-label="Open tabs"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.6a6.2 6.2 0 00-6.2 6.2v3.7l-1.7 2.9c-.4.7.1 1.6.9 1.6h14c.8 0 1.3-.9.9-1.6l-1.7-2.9V8.8A6.2 6.2 0 0012 2.6z"/><path d="M9.3 18.4a2.7 2.7 0 005.4 0z"/></svg><span class="badge" id="badge">7</span></button>
+  </header>
+  <main class="stage">
+    <nav class="tabs" id="tabs"></nav>
+    <section class="card">
+      <div class="body" id="body"></div>
+      <div class="foot" id="foot"></div>
+    </section>
+  </main>
+  <div class="scrim" id="scrim"></div>
+  <div class="panel" id="panel">
+    <div class="ph" id="panelHead"></div>
+    <div class="list" id="panelList"></div>
+  </div>
+  <div class="toast" id="toast"></div>
+</div>
+
+<script>
+/* ---------- settings ---------- */
+/* Paste the Google Apps Script web app URL between the quotes */
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbxnSoOqtznrDoItJof-NBEJFqaq4Us4tFL1_9Xy24ySHH6bUQKzPefKZrGN73h5CviQ-g/exec";
+const STORE = "7tabs-v2";
+
+/* ---------- the questions ---------- */
+const SECTIONS = [
+{ key:"t1", num:"01", tab:"You", title:"You", slug:"01-you", main:true,
+  intro:"Seven women, seven lives. Before we build 7 Tabs Open, we want to know the woman behind every tab.",
+  qs:[
+  {t:"short", id:"name", q:"Your name as it will appear across 7 Tabs", h:"First name, nickname, whatever you want the world to call you.", ph:"Type your name"},
+  {t:"handles", q:"Your handles", h:"No links needed, just your @ for every account you use. Leave blank the ones you don't."},
+  {t:"short", q:"If your life were a 7 Tabs episode, what would it be called?", h:"The first title that comes to mind is usually the right one.", ph:"Episode title"},
+  {t:"long", q:"Where you grew up, and how you ended up in Dubai", h:"The origin story we'd tell in your first episode."},
+  {t:"long", q:"What did little you want to be, and what would she think of you being part of 7 Tabs?", h:"Be as honest as she would be."},
+  {t:"long", q:"The moment your life changed direction", h:"Big or small. The before and the after.", also:{q:"Is it a story you'd tell on 7 Tabs?", o:["Yes","Maybe","Not yet"]}},
+  {t:"long", q:"Something you're proud of that nobody ever claps for", h:"This is what 7 Tabs should celebrate."}
+]},
+{ key:"t2", num:"02", tab:"Your seven tabs", title:"Your seven tabs", slug:"02-your-seven-tabs", main:true,
+  intro:"Every tab open in your head is a conversation someone out there needs to hear.",
+  qs:[
+  {t:"seven", q:"The seven tabs open in your head right now", h:"One line each. Work, love, family, the group chat, the thing you keep putting off."},
+  {t:"short", q:"Which one would you open first on 7 Tabs?", h:"The one you could talk about tomorrow without notes."},
+  {t:"long", q:"Which tab has been open the longest, and what would closing it look like?", h:"The one that never quite goes away."},
+  {t:"long", q:"What's keeping you up at night lately?", h:"Chances are the women watching are up with it too."},
+  {t:"long", q:"Something you're going through that your followers don't know about", h:"Only if you want to. 7 Tabs could be the first place you talk about it."},
+  {t:"long", q:"What are you chasing right now?", h:"We'd love 7 Tabs to follow it with you."},
+  {t:"long", q:"Something you're quietly working on that nobody knows about yet", h:"It could launch through 7 Tabs."}
+]},
+{ key:"t3", num:"03", tab:"Love, friendship, family", title:"Love, friendship, family", slug:"03-love-friendship-family", main:true,
+  intro:"The tabs every woman has open, whether she admits it or not.",
+  qs:[
+  {t:"single", q:"Where are you in love right now?", h:"Pick the one that fits best today.", o:["Single and loving it","Single and looking","Dating","Situationship","In a relationship","Engaged","Married","It's complicated","Rather not say"]},
+  {t:"long", q:"The relationship lesson you'd want every woman watching 7 Tabs to learn without having to live it", h:"The one you learned the hard way."},
+  {t:"long", q:"Your non-negotiable in a partner", h:"The hill you'd die on in a 7 Tabs debate."},
+  {t:"single", q:"Children: where are you with it?", h:"There's no right answer here.", o:["Yes, one day","No","Already there","Not sure"], also:{q:"Would you talk about it on 7 Tabs?", o:["Yes","Maybe","No"]}},
+  {t:"long", q:"A friendship that ended, and what it taught you", h:"No names needed.", also:{q:"Is it a 7 Tabs episode?", o:["One every woman needs","Maybe one day","I'd keep it to myself"]}},
+  {t:"long", q:"What kind of friend are you, honestly?", h:"And what kind will you be to the women watching 7 Tabs?"}
+]},
+{ key:"t4", num:"04", tab:"The real you", title:"The real you", slug:"04-the-real-you", main:true,
+  intro:"7 Tabs is built on being real. This is the realest tab.",
+  qs:[
+  {t:"long", q:"What do people assume about you that isn't true?", h:"7 Tabs could finally set it straight."},
+  {t:"long", q:"Your biggest insecurity, and how loud is it these days?", h:"Saying it out loud on 7 Tabs could help someone hear theirs."},
+  {t:"long", q:"The last time you cried, and why", h:"Happy tears count."},
+  {t:"multi", q:"Your relationship with money", h:"Money is a subject 7 Tabs could own. Tick all that fit.", o:["Saver","Spender","Anxious","Generous","Never think about it"], more:"Anything you'd want to say about it on 7 Tabs"},
+  {t:"long", q:"How do you look after your mind and body?", h:"What would your 7 Tabs wellness episode look like?"},
+  {t:"long", q:"What do you believe in?", h:"Faith, spirituality, astrology, manifesting, or none of it."},
+  {t:"long", q:"Something you've changed your mind about in the last few years", h:"Perfect 7 Tabs debate material."},
+  {t:"long", q:"Your most unpopular opinion", h:"The clip that goes viral on 7 Tabs."},
+  {t:"short", q:"Your guilty pleasure", h:"The one you'd only admit to the group."},
+  {t:"long", q:"What would you tell yourself at 21?", h:"The 21-year-olds watching 7 Tabs want to know."}
+]},
+{ key:"t5", num:"05", tab:"Being seen", title:"Being seen", slug:"05-being-seen", main:true,
+  intro:"You already have an audience. 7 Tabs gives them somewhere new to find you.",
+  qs:[
+  {t:"scale", q:"Being online: how does it feel?", h:"Somewhere between pure pressure and pure joy.", lo:"Pure pressure", hi:"Pure joy", more:"And how should 7 Tabs feel different from your own page?"},
+  {t:"long", q:"The worst thing anyone has said about you online, and how you dealt with it", h:"How you handled it says more than what they said."},
+  {t:"long", q:"Something you'd never post on your own page but might say on 7 Tabs", h:"The gap between the two is where 7 Tabs lives."},
+  {t:"long", q:"The you your followers know, and the you your friends know", h:"Which one should 7 Tabs show?"},
+  {t:"single", q:"Which platform do you actually love?", h:"Not the biggest one. The one you enjoy.", o:["Instagram","TikTok","YouTube","LinkedIn","X","Snapchat","Threads","Pinterest","None of them"], more:"Why that one?"},
+  {t:"long", q:"Who follows you?", h:"Age, where they are, what they come to you for. These are the women you'll bring to 7 Tabs. Paste numbers from your insights if you have them."}
+]},
+{ key:"t6", num:"06", tab:"The seven of you", title:"The seven of you", slug:"06-the-seven-of-you", main:true,
+  intro:"No group of friends is the same. This is what makes 7 Tabs yours.",
+  qs:[
+  {t:"long", q:"How the seven of you found each other", h:"Your side of the 7 Tabs origin story: who you knew first, and how the group came together."},
+  {t:"people", id:"six", q:"Your first impression of each of the other six, and what you think of them now", h:"Her name, then a line on each. Only we see this, never the group.", ph:"First impression, and now"},
+  {t:"single", q:"Your role in 7 Tabs", h:"The one the others would give you too.", o:["The honest one","The chaos","The voice of reason","The agony aunt","The planner","The comedian","The romantic","The cynic","The instigator","Something else"]},
+  {t:"pick", q:"Who would you call at 3am?", h:"Pick one. Only we see this, never the group."},
+  {t:"pick", q:"Which of them have you learned the most from?", h:"Pick one, then tell us what she taught you.", more:"What did she teach you?"},
+  {t:"long", q:"What do the seven of you never agree on?", h:"Those are the episodes."},
+  {t:"long", q:"The night, trip or moment that sums you all up", h:"The story 7 Tabs should open with."},
+  {t:"long", q:"What would the others say is your worst habit?", h:"Be honest. They will be."}
+]},
+{ key:"t7", num:"07", tab:"7 Tabs Open", title:"7 Tabs Open", slug:"07-7-tabs-open", main:true,
+  intro:"Where this goes next is down to the seven of you.",
+  qs:[
+  {t:"long", q:"Why do you want to be part of 7 Tabs?", h:"The real reason, not the polished one."},
+  {t:"long", q:"What do you want women to take from you through 7 Tabs?", h:"The feeling, the lesson, the thing they repeat to their friends."},
+  {t:"long", q:"The conversation you've been dying to have in public", h:"The one you have at dinner but never on camera."},
+  {t:"multi", q:"The tabs you'd lead", h:"Tick the subjects you'd want to own on 7 Tabs.", o:["Dating","Relationships","Marriage","Money","Career","Business","Motherhood","Family","Friendship","Wellness","Beauty","Fashion","Mental health","Faith","Culture","Dubai life","Travel"], more:"Anything we've missed"},
+  {t:"long", q:"Something you'd be scared to say on 7 Tabs but think you should", h:"Fear usually means it matters."},
+  {t:"long", q:"The woman watching 7 Tabs: who is she?", h:"Her age, her life, her group chat, her week."},
+  {t:"multi", q:"Where could 7 Tabs go?", h:"Tick everything you'd love to see.", o:["Live shows","Events","Merch","A product","A book","A TV format","Brand partnerships"], more:"Something else"},
+  {t:"short", q:"The headline you'd love to read about 7 Tabs a year from now", h:"Write it like the press already has.", ph:"The headline"},
+  {t:"long", q:"What scares you about it?", h:"Better said now than later."}
+]},
+{ key:"t8", num:"08", tab:"Closed tabs", title:"The tabs that stay closed", slug:"closed-tabs", icon:"lock",
+  intro:"So 7 Tabs only ever feels good to be part of.",
+  qs:[
+  {t:"long", q:"Anything completely off limits on 7 Tabs", h:"No explanation needed."},
+  {t:"multi", q:"People who shouldn't be named or shown", h:"We'll keep them out of everything.", o:["Partner","Children","Family","Exes","Friends outside the group","Colleagues or employer"], more:"Anyone else, or anything specific"},
+  {t:"scale", q:"How open are you happy to be about your love life?", h:"You can change your mind later.", lo:"Fully private", hi:"Open book"},
+  {t:"long", q:"Anything cultural, religious, family or professional we should know", h:"So nothing we plan ever puts you in an awkward spot."},
+  {t:"single", q:"Do you want to approve clips of yourself before they go out?", h:"Your face, your call.", o:["Always","Only the sensitive ones","No need"]},
+  {t:"long", q:"Anything you've written here that should stay between you and us", h:"We'll make sure it does."}
+]},
+{ key:"t9", num:"09", tab:"Practical", title:"The practical bit", slug:"practical", icon:"dots",
+  intro:"Nearly done. A few quick ones, then every tab is closed.",
+  qs:[
+  {t:"long", q:"Manager or agent, plus any brand deals or exclusivities right now", h:"So 7 Tabs never clashes with a deal you already have."},
+  {t:"long", q:"Brands you'd love 7 Tabs to work with, and brands you never would", h:"Dream big, and be clear about the no's."},
+  {t:"single", q:"Hours a week you can give 7 Tabs", h:"Be realistic. It helps us plan the content load.", o:["Under 2","2 to 5","5 to 10","10 or more"]},
+  {t:"multi", q:"Days you're usually free to record", h:"Tick all that usually work.", o:["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday","It changes week to week"]},
+  {t:"short", q:"Best way to reach you", h:"WhatsApp number, email, or both.", ph:"WhatsApp or email"}
+]}
+];
+
+const HANDLES = [["IG","Instagram"],["TT","TikTok"],["YT","YouTube"],["IN","LinkedIn"],["X","X"],["SC","Snapchat"],["TH","Threads"],["PI","Pinterest"],["+","Other"]];
+
+/* ---------- icons ---------- */
+const G = [
+ '<svg viewBox="0 0 16 16" fill="currentColor"><rect x="3" y="3" width="10" height="10" rx="2.6"/></svg>',
+ '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 2.2l4.8 1.7v3.8c0 3-2.1 5.1-4.8 6.1-2.7-1-4.8-3.1-4.8-6.1V3.9z"/></svg>',
+ '<svg viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="8" r="4.6"/></svg>',
+ '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M3 13.2V6.6A3.6 3.6 0 016.6 3h2.8A3.6 3.6 0 0113 6.6v6.6z"/></svg>',
+ '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 2.4l5.6 5.6L8 13.6 2.4 8z"/></svg>'
+];
+const CHECK = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.8 8.4l2.7 2.7L12.2 5.4"/></svg>';
+const LOCK = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 10V7.5a5 5 0 0110 0V10h.5A2.5 2.5 0 0120 12.5v6A2.5 2.5 0 0117.5 21h-11A2.5 2.5 0 014 18.5v-6A2.5 2.5 0 016.5 10zm2.5 0h5V7.5a2.5 2.5 0 00-5 0z"/></svg>';
+const DOTS = '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2.6"/><circle cx="12" cy="12" r="2.6"/><circle cx="19" cy="12" r="2.6"/></svg>';
+const SKIP = '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M3 3.5l6 4.5-6 4.5zM10 3.5h2.4v9H10z"/></svg>';
+const SAVE = '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.5h8v11L8 10.6 4 13.5z"/></svg>';
+const BELL = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.6a6.2 6.2 0 00-6.2 6.2v3.7l-1.7 2.9c-.4.7.1 1.6.9 1.6h14c.8 0 1.3-.9.9-1.6l-1.7-2.9V8.8A6.2 6.2 0 0012 2.6z"/><path d="M9.3 18.4a2.7 2.7 0 005.4 0z"/></svg>';
+const ARROW_L = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4l-6 6 6 6"/></svg>';
+const CHEV = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8l5 5 5-5"/></svg>';
+
+/* ---------- build steps ---------- */
+const VS = SECTIONS;
+const steps = [{k:"cover"}];
+const introAt = {};
+let n = 0;
+VS.forEach(s => {
+  s.qs.forEach((q,i) => { if(!q.id) q.id = s.key + "_" + i; q.n = ++n; q.s = s; });
+  introAt[s.key] = steps.length;
+  steps.push({k:"intro", s});
+  s.qs.forEach(q => steps.push({k:"q", s, q}));
+});
+const REVIEW = steps.length;
+steps.push({k:"review"});
+const TOTAL = n;
+const MAIN = VS.filter(s => s.main);
+
+/* ---------- state ---------- */
+let A = {}, closed = [], idx = 0, sent = false, filter = "all";
+try { const d = JSON.parse(localStorage.getItem(STORE) || "null"); if(d){ A = d.A || {}; closed = d.closed || []; sent = !!d.sent; d._idx = d.idx || 0; window.__saved = d; } } catch(e){}
+let saveT;
+function save(){ clearTimeout(saveT); saveT = setTimeout(() => { try { localStorage.setItem(STORE, JSON.stringify({A, closed, idx, sent})); } catch(e){} }, 150); }
+const hasSaved = () => Object.keys(A).some(k => filled(A[k]));
+
+/* ---------- helpers ---------- */
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const pad = x => String(x).padStart(2,"0");
+function filled(v){
+  if(v == null) return false;
+  if(typeof v === "string") return v.trim() !== "";
+  if(typeof v === "number") return true;
+  if(Array.isArray(v)) return v.some(x => typeof x === "object" && x ? Object.values(x).some(filled) : filled(x));
+  if(typeof v === "object") return Object.values(v).some(filled);
+  return false;
+}
+const answered = q => filled(A[q.id]) || filled(A[q.id+"_more"]) || filled(A[q.id+"_also"]);
+const secDone = s => s.qs.filter(answered).length;
+const openCount = () => MAIN.filter(s => !closed.includes(s.key)).length;
+const names = () => (A.six || []).map(r => (r && r.name || "").trim()).filter(Boolean);
+const firstName = () => (A.name || "").trim().split(/\s+/)[0] || "";
+
+/* ---------- top bar ---------- */
+function setCrumb(st){
+  let h = "<b>7tabsopen</b>";
+  if(st.k === "cover") h += " / start";
+  else if(st.k === "review") h += " / send";
+  else { h += " / " + st.s.slug; if(st.k === "q") h += " / q" + pad(st.q.n); }
+  $("#crumb").innerHTML = h;
+}
+function setBadge(pop){
+  const b = $("#badge"), c = openCount();
+  b.textContent = c; b.classList.toggle("zero", c === 0);
+  if(pop){ b.classList.add("pop"); $("#bellBtn").classList.add("ring"); setTimeout(() => { b.classList.remove("pop"); $("#bellBtn").classList.remove("ring"); }, 700); }
+}
+
+function tabGlyph(s){
+  if(closed.includes(s.key)) return `<span class="tk">${CHECK}</span>`;
+  if(s.icon === "lock") return `<span class="tg">${LOCK}</span>`;
+  if(s.icon === "dots") return `<span class="tg">${DOTS}</span>`;
+  return `<span class="tn">${s.num}</span>`;
+}
+function renderTabs(st){
+  const cur = st.s ? st.s.key : st.k;
+  let h = `<button class="tab ${cur==="cover"?"on":""}" data-go="0">Start</button>`;
+  VS.forEach(s => { h += `<button class="tab ${cur===s.key?"on":""}" data-go="${introAt[s.key]}">${tabGlyph(s)}${esc(s.tab)}</button>`; });
+  h += `<button class="tab ${cur==="review"?"on":""}" data-go="${REVIEW}">Send</button>`;
+  h += `<button class="tab more" data-panel="1" aria-label="All tabs">${CHEV}</button>`;
+  const el = $("#tabs"); el.innerHTML = h;
+  const on = el.querySelector(".tab.on"); if(on) on.scrollIntoView({block:"nearest", inline:"center", behavior:"smooth"});
+}
+
+/* ---------- screens ---------- */
+function render(){
+  const st = steps[idx];
+  setCrumb(st); renderTabs(st); setBadge(false);
+  const body = $("#body"), foot = $("#foot");
+  body.scrollTop = 0;
+  if(sent && st.k === "review") return renderDone();
+  if(st.k === "cover") renderCover(body, foot);
+  else if(st.k === "intro") renderIntro(st.s, body, foot);
+  else if(st.k === "q") renderQ(st, body, foot);
+  else renderReview(body, foot);
+  body.firstElementChild && body.firstElementChild.classList.add("enter");
+}
+
+function renderCover(body, foot){
+  const fan = MAIN.slice().reverse().map((s,i) => {
+    const k = MAIN.length - 1 - i;
+    return `<div class="gtab" style="top:${30 + k*46}px;left:${k*20}px;z-index:${k+1};--r:${(k%2? -1:1)*(1.2 + k*.3)}deg;animation-delay:${-k*.6}s">
+      <div class="gh"><b>${s.num}</b><span>${esc(s.tab)}</span><i>×</i></div>
+      <div class="gb"><u style="width:${88 - k*4}%"></u><u style="width:${62 + k*3}%"></u></div></div>`;
+  }).join("");
+  body.innerHTML = `<div class="cover">
+    <div>
+      <div class="kicker">A questionnaire for the seven of you</div>
+      <h1 class="headline">Seven women.<br>Seven lives.<br><span>A lot of tabs open.</span></h1>
+      <p class="lede">Before we build 7 Tabs Open, we want to know the woman behind every tab. It takes around 30 minutes, and you don't have to do it in one go.</p>
+      <div class="promises">
+        ${prow(LOCK.replace('viewBox="0 0 24 24"','viewBox="0 0 24 24" width="17" height="17"'), "Only we read this", "Nothing you write is shared with the group.", "", true)}
+        ${prow(SKIP, "Skip anything", "Every question is optional.", "")}
+        ${prow(SAVE, "Saves as you go", "Close it and pick up where you left off on this device.", "")}
+      </div>
+    </div>
+    <div class="visual" aria-hidden="true">${fan}<div class="bigbell">${BELL}<span class="badge">${openCount()}</span></div></div>
+  </div>`;
+  foot.innerHTML = `<span class="chip">${TOTAL} questions · ${MAIN.length} tabs</span><div class="prog" style="opacity:0"></div>` +
+    (hasSaved() ? `<button class="btn text" id="restart">Start again</button><button class="btn dark" id="resume">Pick up where you left off <span class="kbd">↵</span></button>`
+                : `<button class="btn dark" id="begin">Open tab ${VS[0].num} <span class="kbd">↵</span></button>`);
+  const b = $("#begin"); if(b) b.onclick = () => go(1);
+  const r = $("#resume"); if(r) r.onclick = () => go(Math.max(1, Math.min((window.__saved && window.__saved._idx) || 1, REVIEW)));
+  const rs = $("#restart"); if(rs) rs.onclick = () => { if(confirmReset()) { A = {}; closed = []; sent = false; save(); go(1); } };
+}
+function confirmReset(){ const el = $("#restart"); if(el.dataset.sure){ return true; } el.dataset.sure = 1; el.textContent = "Tap again to clear your answers"; return false; }
+
+function prow(icon, t, s, m, dark){
+  return `<div class="prow"><span class="ico" ${dark?'style="background:#0b0b0b;color:#fff"':""}>${icon}</span><div><div class="t">${t}</div><div class="s">${s}</div></div><span class="m">${m}</span></div>`;
+}
+
+function renderIntro(s, body, foot){
+  const big = s.icon ? `<div class="big icon">${s.icon === "lock" ? LOCK : DOTS}</div>` : `<div class="big">${s.num}</div>`;
+  const label = s.main ? `Tab ${s.num}` : s.tab;
+  const peek = s.qs.slice(0,4).map((q,i) => prow(G[i % G.length], esc(q.q), esc(q.h || ""), "Q" + pad(q.n))).join("");
+  const more = s.qs.length > 4 ? `<div class="prow"><span class="ico">${DOTS.replace('viewBox','width="17" height="17" viewBox')}</span><div><div class="t">And ${s.qs.length - 4} more</div><div class="s">Skip anything you'd rather not answer.</div></div><span class="m"></span></div>` : "";
+  const mins = Math.max(2, Math.round(s.qs.length * .6));
+  body.innerHTML = `<div class="intro">
+    <div>${big}
+      <h2 class="ititle">${esc(s.title)}</h2>
+      <p class="iline">${esc(s.intro)}</p>
+      <div class="ifacts"><span class="chip">${s.qs.length} questions</span><span class="chip">About ${mins} minutes</span>${secDone(s) ? `<span class="chip">${secDone(s)} answered</span>` : ""}</div>
+    </div>
+    <div class="peek"><div class="peek-h"><span class="on">${esc(label)}</span><span>Q${pad(s.qs[0].n)} to Q${pad(s.qs[s.qs.length-1].n)}</span></div>${peek}${more}</div>
+  </div>`;
+  foot.innerHTML = `<button class="btn ghost back" id="prev" aria-label="Back">${ARROW_L}</button><div class="prog"><i style="width:${progressPct()}%"></i></div><button class="btn dark" id="next">Open ${s.main ? "tab " + s.num : "this tab"} <span class="kbd">↵</span></button>`;
+  wireFoot();
+}
+
+function progressPct(){ return Math.round(steps.slice(0, idx+1).filter(x => x.k === "q").length / TOTAL * 100); }
+
+function renderQ(st, body, foot){
+  const {s, q} = st;
+  const pos = s.qs.indexOf(q) + 1;
+  const last = pos === s.qs.length;
+  body.innerHTML = `<div>
+    <div class="meta"><span>${s.main ? "Tab " + s.num + "<em> · </em>" : ""}<em>${esc(s.title)}</em></span><span>Q${pad(q.n)} / ${TOTAL}</span></div>
+    <h2 class="q">${esc(q.q)}</h2>
+    ${q.h ? `<p class="help">${esc(q.h)}</p>` : ""}
+    <div class="ans" id="ans"></div>
+  </div>`;
+  renderAnswer(q, $("#ans"));
+  const closeLabel = s.main ? `Close tab ${s.num}` : "Close this tab";
+  foot.innerHTML = `<button class="btn ghost back" id="prev" aria-label="Back">${ARROW_L}</button>
+    <div class="prog"><i style="width:${progressPct()}%"></i></div>
+    <button class="btn text" id="skip">Skip</button>
+    <button class="btn dark" id="next">${last ? closeLabel : "Continue"} <span class="kbd">↵</span></button>`;
+  wireFoot();
+  const first = body.querySelector("input,textarea");
+  if(first && window.matchMedia("(min-width:761px)").matches) setTimeout(() => first.focus({preventScroll:true}), 60);
+}
+
+function optsHTML(list, sel, multi, key){
+  const two = list.length > 6 ? " two" : "";
+  return `<div class="opts${two}" data-key="${key}" data-multi="${multi?1:0}">` + list.map((o,i) => {
+    const on = multi ? (sel || []).includes(o) : sel === o;
+    const glyph = on ? CHECK : G[i % G.length];
+    return `<button class="opt ${on?"on":""}" data-v="${esc(o)}"><span class="ico">${glyph}</span><span class="lb">${esc(o)}</span><span class="k">${String.fromCharCode(65+i)}</span></button>`;
+  }).join("") + `</div>`;
+}
+
+function renderAnswer(q, el){
+  let h = "";
+  const v = A[q.id];
+  if(q.t === "short") h = `<input class="field" data-bind="${q.id}" placeholder="${esc(q.ph || "Type here")}" value="${esc(v || "")}">`;
+  else if(q.t === "long") h = `<textarea class="field" data-bind="${q.id}" placeholder="${esc(q.ph || "Take your time")}">${esc(v || "")}</textarea>`;
+  else if(q.t === "single") h = optsHTML(q.o, v, false, q.id);
+  else if(q.t === "multi") h = optsHTML(q.o, v, true, q.id);
+  else if(q.t === "scale") h = `<div class="scale" data-key="${q.id}">${[1,2,3,4,5].map(x => `<button class="sc ${v===x?"on":""}" data-v="${x}">${x}</button>`).join("")}</div><div class="scl"><span>${esc(q.lo)}</span><span>${esc(q.hi)}</span></div>`;
+  else if(q.t === "handles"){
+    const o = v || {};
+    h = `<div class="rows handles">` + HANDLES.map(([ab,name]) => `<div class="row"><span class="ico">${ab}</span><div class="hwrap"><small>${name}</small><input data-obj="${q.id}" data-f="${name}" placeholder="${name === "Other" ? "Platform and @handle" : "@handle"}" value="${esc(o[name] || "")}" autocapitalize="off" autocorrect="off" spellcheck="false"></div></div>`).join("") + `</div>`;
+  }
+  else if(q.t === "seven"){
+    const a = v || [];
+    h = `<div class="rows">` + [0,1,2,3,4,5,6].map(i => `<div class="row seven"><span class="ico">${pad(i+1)}</span><input data-arr="${q.id}" data-i="${i}" placeholder="Tab ${i+1}" value="${esc(a[i] || "")}"></div>`).join("") + `</div>`;
+  }
+  else if(q.t === "people"){
+    const a = v || [];
+    h = `<div class="rows">` + [0,1,2,3,4,5].map(i => { const r = a[i] || {}; return `<div class="row people"><span class="ico">${G[i % G.length]}</span><input class="nm" data-ppl="${q.id}" data-i="${i}" data-f="name" placeholder="Her name" value="${esc(r.name || "")}"><input class="tx" data-ppl="${q.id}" data-i="${i}" data-f="text" placeholder="${esc(q.ph)}" value="${esc(r.text || "")}"></div>`; }).join("") + `</div>`;
+  }
+  else if(q.t === "pick"){
+    const list = names();
+    h = list.length ? optsHTML(list, v, false, q.id)
+      : `<input class="field" data-bind="${q.id}" placeholder="Her name" value="${esc(v || "")}">`;
+  }
+  if(q.also) h += `<div class="sub">${esc(q.also.q)}</div>` + optsHTML(q.also.o, A[q.id+"_also"], false, q.id+"_also");
+  if(q.more) h += `<div class="sub">${esc(q.more)}</div><textarea class="field small" data-bind="${q.id}_more" placeholder="Optional">${esc(A[q.id+"_more"] || "")}</textarea>`;
+  el.innerHTML = h;
+
+  el.querySelectorAll("[data-bind]").forEach(i => i.addEventListener("input", () => { A[i.dataset.bind] = i.value; save(); }));
+  el.querySelectorAll("[data-obj]").forEach(i => i.addEventListener("input", () => { const o = A[i.dataset.obj] = A[i.dataset.obj] || {}; o[i.dataset.f] = i.value; save(); }));
+  el.querySelectorAll("[data-arr]").forEach(i => i.addEventListener("input", () => { const a = A[i.dataset.arr] = A[i.dataset.arr] || []; a[+i.dataset.i] = i.value; save(); }));
+  el.querySelectorAll("[data-ppl]").forEach(i => i.addEventListener("input", () => { const a = A[i.dataset.ppl] = A[i.dataset.ppl] || []; const r = a[+i.dataset.i] = a[+i.dataset.i] || {}; r[i.dataset.f] = i.value; save(); }));
+  el.querySelectorAll(".opts").forEach(box => box.addEventListener("click", e => {
+    const b = e.target.closest(".opt"); if(!b) return;
+    pickOpt(q, box, b.dataset.v);
+  }));
+  const sc = el.querySelector(".scale");
+  if(sc) sc.addEventListener("click", e => { const b = e.target.closest(".sc"); if(!b) return; const x = +b.dataset.v; A[q.id] = A[q.id] === x ? undefined : x; save(); sc.querySelectorAll(".sc").forEach(c => c.classList.toggle("on", +c.dataset.v === A[q.id])); });
+}
+
+function pickOpt(q, box, val){
+  const key = box.dataset.key, multi = box.dataset.multi === "1";
+  if(multi){ const a = A[key] = A[key] || []; const i = a.indexOf(val); i < 0 ? a.push(val) : a.splice(i,1); }
+  else A[key] = A[key] === val ? undefined : val;
+  save();
+  box.querySelectorAll(".opt").forEach((b,i) => {
+    const on = multi ? (A[key] || []).includes(b.dataset.v) : A[key] === b.dataset.v;
+    b.classList.toggle("on", on);
+    b.querySelector(".ico").innerHTML = on ? CHECK : G[i % G.length];
+  });
+  const simple = (q.t === "single" || q.t === "pick") && !q.also && !q.more && key === q.id;
+  if(simple && A[key] !== undefined) setTimeout(() => { if(steps[idx].q === q) next(); }, 380);
+}
+
+function renderReview(body, foot){
+  const rows = VS.map((s,i) => prow(closed.includes(s.key) ? CHECK : G[i % G.length], (s.main ? "Tab " + s.num + " · " : "") + esc(s.title), `${secDone(s)} of ${s.qs.length} answered`, closed.includes(s.key) ? "Closed" : "Open", closed.includes(s.key))).join("");
+  const total = VS.reduce((t,s) => t + secDone(s), 0);
+  const c = openCount();
+  body.innerHTML = `<div class="endgrid">
+    <div>
+      <div class="kicker">Nearly there${firstName() ? ", " + esc(firstName()) : ""}</div>
+      <h1 class="headline">${c === 0 ? "Every tab<br>closed." : "Ready when<br>you are."}</h1>
+      <p class="lede">You've answered ${total} of ${TOTAL}. ${c ? "There are still " + c + " tab" + (c>1?"s":"") + " open, but you can send what you have and add more in a chat with us later." : "Send it over and we'll start building 7 Tabs Open around the seven of you."}</p>
+      <div class="ctas"><button class="btn dark" id="send">Send my answers <span class="kbd">↵</span></button></div>
+      <div class="status" id="status"></div>
+      <div class="fallback" id="fallback">It didn't go through. Download your answers and send the file to Charlie on WhatsApp instead.<div class="ctas"><button class="btn dark" id="dl">Download my answers</button><button class="btn ghost" id="retry">Try again</button></div></div>
+    </div>
+    <div class="peek"><div class="peek-h"><span class="on">All tabs</span><span>${MAIN.length - c} of ${MAIN.length} closed</span></div>${rows}</div>
+  </div>`;
+  foot.innerHTML = `<button class="btn ghost back" id="prev" aria-label="Back">${ARROW_L}</button><div class="prog"><i style="width:100%"></i></div><span class="chip">Your answers are saved on this device</span>`;
+  $("#prev").onclick = prev;
+  $("#send").onclick = send;
+  $("#retry").onclick = send;
+  $("#dl").onclick = download;
+  body.querySelectorAll(".peek .prow").forEach((r,i) => { r.style.cursor = "pointer"; r.onclick = () => go(introAt[VS[i].key]); });
+}
+
+function renderDone(){
+  const body = $("#body");
+  body.innerHTML = `<div class="endgrid">
+    <div>
+      <div class="kicker">Sent${firstName() ? " · thank you, " + esc(firstName()) : ""}</div>
+      <h1 class="headline">That's every<br>tab closed.</h1>
+      <p class="lede">Your answers are in. Once all seven are in, we start building 7 Tabs Open around you. We'll be in touch with what comes next.</p>
+      <div class="ctas"><button class="btn ghost" id="dl">Download a copy</button><button class="btn text" id="edit">Change an answer</button></div>
+    </div>
+    <div class="visual" aria-hidden="true" style="height:300px"><div class="bigbell" style="left:0;right:auto;top:10px;width:150px;height:150px;border-radius:44px">${BELL}<span class="badge zero">0</span></div></div>
+  </div>`;
+  body.firstElementChild.classList.add("enter");
+  $("#foot").innerHTML = `<div class="prog"><i style="width:100%"></i></div><span class="chip">7 Tabs Open</span>`;
+  $("#dl").onclick = download;
+  $("#edit").onclick = () => { sent = false; save(); go(1); };
+}
+
+/* ---------- navigation ---------- */
+function wireFoot(){
+  const p = $("#prev"), nx = $("#next"), sk = $("#skip");
+  if(p) p.onclick = prev;
+  if(nx) nx.onclick = next;
+  if(sk) sk.onclick = next;
+}
+function go(i){ idx = Math.max(0, Math.min(i, steps.length - 1)); save(); render(); closePanel(); }
+function prev(){ go(idx - 1); }
+function next(){
+  const st = steps[idx];
+  if(st.k === "review") return send();
+  if(st.k === "q"){
+    const nx = steps[idx + 1];
+    if(!nx || nx.s !== st.s) closeTab(st.s);
+  }
+  go(idx + 1);
+}
+function closeTab(s){
+  if(closed.includes(s.key)) return;
+  closed.push(s.key); save();
+  if(!s.main) return;
+  const c = openCount();
+  setBadge(true);
+  toast(`Tab ${s.num} closed`, c ? `${c} tab${c>1?"s":""} still open` : "Every tab closed", s.num);
+}
+let toastT;
+function toast(t, s, m){
+  const el = $("#toast");
+  el.innerHTML = `<span class="ico">${CHECK}</span><div><div class="t">${esc(t)}</div><div class="s">${esc(s)}</div></div><span class="m">now</span>`;
+  el.classList.add("show"); clearTimeout(toastT);
+  toastT = setTimeout(() => el.classList.remove("show"), 2800);
+}
+
+/* ---------- panel ---------- */
+function openPanel(){
+  const head = ["all","open","closed"].map(f => `<button class="${filter===f?"on":""}" data-f="${f}">${f[0].toUpperCase() + f.slice(1)}</button>`).join("");
+  $("#panelHead").innerHTML = head;
+  const list = VS.filter(s => filter === "all" || (filter === "open") === !closed.includes(s.key));
+  $("#panelList").innerHTML = list.length ? list.map((s,i) => {
+    const c = closed.includes(s.key);
+    return `<button class="prow" data-go="${introAt[s.key]}"><span class="ico" ${c?'style="background:#0b0b0b;color:#fff"':""}>${c ? CHECK : (s.icon==="lock" ? LOCK.replace('viewBox','width="17" height="17" viewBox') : G[i % G.length])}</span><div><div class="t">${s.main ? "Tab " + s.num + " · " : ""}${esc(s.title)}</div><div class="s">${secDone(s)} of ${s.qs.length} answered</div></div><span class="m">${c ? "Closed" : "Open"}</span></button>`;
+  }).join("") : `<div class="prow"><span class="ico">${CHECK}</span><div><div class="t">Nothing here</div><div class="s">${filter === "open" ? "Every tab is closed." : "No tabs closed yet."}</div></div><span class="m"></span></div>`;
+  $("#panel").classList.add("open"); $("#scrim").classList.add("open");
+}
+function closePanel(){ $("#panel").classList.remove("open"); $("#scrim").classList.remove("open"); }
+$("#bellBtn").onclick = () => $("#panel").classList.contains("open") ? closePanel() : openPanel();
+$("#menuBtn").onclick = $("#bellBtn").onclick;
+$("#scrim").onclick = closePanel;
+$("#panelHead").onclick = e => { const b = e.target.closest("button"); if(b){ filter = b.dataset.f; openPanel(); } };
+$("#panelList").onclick = e => { const b = e.target.closest("[data-go]"); if(b) go(+b.dataset.go); };
+$("#tabs").onclick = e => { const b = e.target.closest(".tab"); if(!b) return; if(b.dataset.panel) return openPanel(); go(+b.dataset.go); };
+
+/* ---------- keyboard ---------- */
+document.addEventListener("keydown", e => {
+  if(e.key === "Escape") return closePanel();
+  const tag = (e.target.tagName || "").toLowerCase();
+  if(e.key === "Enter" && !e.shiftKey){
+    if(tag === "button") return;
+    if(tag === "textarea" && !(e.metaKey || e.ctrlKey)) return;
+    e.preventDefault(); const st = steps[idx];
+    if(st.k === "cover"){ const b = $("#begin") || $("#resume"); if(b) b.click(); return; }
+    return next();
+  }
+  if(tag === "input" || tag === "textarea" || e.metaKey || e.ctrlKey || e.altKey) return;
+  const st = steps[idx];
+  if(st.k === "q" && /^[a-z]$/i.test(e.key)){
+    const box = $("#ans .opts"); if(!box) return;
+    const b = box.querySelectorAll(".opt")[e.key.toUpperCase().charCodeAt(0) - 65];
+    if(b) pickOpt(st.q, box, b.dataset.v);
+  }
+  if(st.k === "q" && /^[1-5]$/.test(e.key)){ const b = $(`#ans .sc[data-v="${e.key}"]`); if(b) b.click(); }
+});
+
+/* ---------- sending ---------- */
+function answerText(q){
+  const v = A[q.id], out = [];
+  if(filled(v)){
+    if(q.t === "handles") out.push(Object.entries(v).filter(([,x]) => filled(x)).map(([k,x]) => `${k}: ${x.trim()}`).join("\n"));
+    else if(q.t === "seven") out.push(v.map((x,i) => filled(x) ? `${i+1}. ${x.trim()}` : "").filter(Boolean).join("\n"));
+    else if(q.t === "people") out.push(v.filter(r => r && filled(r)).map(r => `${(r.name||"?").trim()}: ${(r.text||"").trim()}`).join("\n"));
+    else if(q.t === "scale") out.push(`${v} out of 5 (1 = ${q.lo}, 5 = ${q.hi})`);
+    else if(Array.isArray(v)) out.push(v.join(", "));
+    else out.push(String(v).trim());
+  }
+  if(q.also && filled(A[q.id+"_also"])) out.push(`${q.also.q} ${A[q.id+"_also"]}`);
+  if(q.more && filled(A[q.id+"_more"])) out.push(`${q.more} ${A[q.id+"_more"].trim()}`);
+  return out.join("\n");
+}
+function allAnswers(){
+  const list = [];
+  VS.forEach(s => s.qs.forEach(q => { const t = answerText(q); if(t) list.push({label:`T${s.num} Q${pad(q.n)} · ${q.q}`, text:t, s}); }));
+  return list;
+}
+async function send(){
+  const btn = $("#send"), st = $("#status");
+  if(btn) btn.disabled = true;
+  st.className = "status"; st.textContent = "Sending...";
+  $("#fallback").classList.remove("show");
+  const who = (A.name || "").trim() || "No name given";
+  const answers = [];
+  VS.forEach(s => s.qs.forEach(q => answers.push({
+    key: `${s.num} · ${q.q}`,
+    tab: s.main ? `Tab ${s.num} · ${s.title}` : s.title,
+    q: q.q,
+    a: answerText(q)
+  })));
+  const payload = { name: who, answered: answers.filter(x => x.a).length, total: TOTAL, answers };
+  try{
+    if(!SHEET_URL) throw new Error("No sheet URL");
+    await fetch(SHEET_URL, { method:"POST", mode:"no-cors", headers:{"Content-Type":"text/plain;charset=utf-8"}, body: JSON.stringify(payload) });
+    MAIN.forEach(s => { if(!closed.includes(s.key)) closed.push(s.key); });
+    sent = true; save(); setBadge(true); renderDone();
+  }catch(err){
+    st.className = "status err"; st.textContent = "Something went wrong sending your answers.";
+    $("#fallback").classList.add("show");
+    if(btn) btn.disabled = false;
+  }
+}
+function download(){
+  const who = (A.name || "").trim() || "Unnamed";
+  let txt = `7 TABS OPEN · QUESTIONNAIRE\n${who}\n\n`;
+  let cur = "";
+  allAnswers().forEach(a => {
+    if(a.s.key !== cur){ cur = a.s.key; txt += `\n=== ${a.s.main ? "TAB " + a.s.num + " · " : ""}${a.s.title.toUpperCase()} ===\n\n`; }
+    txt += `${a.label.replace(/^T\d+ /,"")}\n${a.text}\n\n`;
+  });
+  const blob = new Blob([txt], {type:"text/plain"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `7-tabs-open-${who.toLowerCase().replace(/[^a-z0-9]+/g,"-")}.txt`;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+}
+
+/* ---------- go ---------- */
+if(sent) idx = REVIEW;
+render();
+</script>
+</body>
+</html>
